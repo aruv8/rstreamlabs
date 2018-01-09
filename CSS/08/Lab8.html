@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		html{
+			height: 100%;
+		}
+		body{
+			position: static;
+			margin: 0;
+			height: 100%;
+		}
+		#header{
+			position: static;
+			height: 100px;
+			background-color: lightyellow;
+			overflow: auto;
+		}
+		#maincontainer{ /*in addition to usual body, all the standard parameters are here now*/
+		    position: relative;
+		    margin: 0 auto;
+			min-height: 100%;
+		    width: 1000px;
+		}
+		#main{ /*for the left and right content under the image*/
+			position: static;
+			padding-bottom: 75px;
+		}
+		#main:after{
+			content: "";
+			display: block;
+			clear: both;
+		}
+		#image_cage{ 
+			position: static;
+			height: 250px;
+		}
+		#image{
+			position: absolute;
+			left: 0;
+			right: 0;
+			top: 100px;
+			height: 250px;
+			background-image: url(pano1.jpg);
+			background-position: center;
+			z-index: -1; /*I peeped this parameter as it wasn't obvious for me now*/
+		}
+		#left{
+			position: static;
+			float: left;
+			width: 150px;
+			background-color: lightgreen;
+		}
+		#right{
+			position: static;
+			margin-left: 150px;
+			background-color: lightgrey;
+			overflow: auto;
+		}
+		#footer{
+			position: absolute;
+			bottom: 0;
+			height: 75px;
+			width: 1000px;
+			background-color: #fcf;
+		}
+	</style>
+</head>
+<body>
+<div id="maincontainer"><!--new body container-->
+	<div id="header">
+		<p>Header</p>
+	</div>
+	<div id="main">
+		<div id="image_cage"></div><!--emty space in the layout for the image-->
+		<div id="left">
+			<ul>
+				<li>Greenland</li>
+				<li>New Guinea</li>
+				<li>Borneo</li>
+				<li>Madagascar</li>
+				<li>Baffin Land</li>
+			</ul>
+		</div>
+		<div id="right">
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+		</div>
+	</div>	
+	<div id="footer"> <!--has to be inside the new body "maincontainer"-->
+		<p>Footer</p>
+	</div>
+</div> <!--maincontainer-->	
+<div id="image"></div> <!--the image is here-->
+</body>
+</html>
