@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		*{
+			box-sizing: border-box;
+			font-family: sans-serif;
+		}
+		html{
+			height: 100%;
+		}
+		body{
+			position: static;
+			margin: 0;
+			min-width: 500px;
+		}
+		#header{ 
+		    position: relative;
+		    height: 130px;
+		}
+		#h_cont{
+			width: 100%;
+			max-width: 1000px;
+			margin: 0 auto;
+		}
+		#h_left_cont{
+			float: left;
+			position: static;
+			width: 180px;
+		}
+		#h_right_cont{
+			float: right;
+			position: static;
+			width: 180px;
+		}
+		#h_left_cont, #h_right_cont:after{
+			content: "";
+			display: block;
+			clear: both;
+		}
+		#image{ 
+			position: relative;
+			height: 510px;
+			background-position: center;
+			background-size: auto 100%;
+			background-repeat: no-repeat;
+			background-image: url(guy.jpg);
+		}
+		#blue_banner{
+			position: static;
+			width: 100%;
+			max-width: 1000px;
+			margin: 0 auto;			
+		}
+		#image > div:first-child{ /*white text on the blue background*/
+			color: #fff;
+			background-color: #009;
+			padding: 25px;
+			font-size: 26pt;
+			text-align: center;
+		}
+		#image > div:last-child{
+			padding: 20px 0;
+			color: #fff;
+		}
+		#img_txt_and_form{
+			position: static;
+			width: 100%;
+			max-width: 1000px;
+			margin: 0 auto;	
+		}
+		#img_txt_and_form > div:first-child{
+			float: right;
+			width: 250px;
+			color: #555;
+			background-color: #fff;
+			padding: 20px;
+		}
+		#img_txt_and_form > div:last-child{
+			float: none;
+			margin-right: 250px;
+		}
+		#img_txt_and_form:after{
+			content: "";
+			display: block;
+			clear: both;
+		}
+		#circles{
+			position: relative;
+			display: block;
+			width: 100%;
+			max-width: 1000px;
+			margin: 0 auto;
+		}
+		#circles h3{
+			text-align: center;
+		}
+		#circles > div{
+			text-align: center;
+			/*display: block;*/
+		}
+		#circles > div:after{
+			content: "";
+			display: block;
+			clear: both;
+		}
+		#row_3_circles{
+			position: relative;
+			width: 100%;
+			max-width: 1000px;
+			margin: 0 auto;
+		}
+		#row_3_circles:after{
+			content: "";
+			display: block;
+			clear: both;
+		}
+		#row_3_circles > div{
+			float: left;
+			width: 33.3%;
+			padding: 20px 0;
+		}
+		#row_3_circles > div:after{
+			content: "";
+			display: block;
+			clear: both;
+		}
+		@media (max-width: 768px) {
+			#row_3_circles > div {
+				width: 50%;
+			}
+		}
+		@media (max-width: 500px) {
+			#row_3_circles > div {
+				width: 100%;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div id="header"> 
+		<div id="h_cont">
+			<div id="h_left_cont">
+				<h3>Garant Original</h3>
+				<p>Helping with bank guaranties over all Equador</p>
+			</div>
+			<div id="h_right_cont">
+				<h3>8(800)735-39-95</h3>
+				<p>Feel free to call us now. Mon-Fr, 9AM-9PM</p>
+			</div>
+		</div>
+	</div>		
+	
+	<div id="image">
+		<div id="blue_banner">
+			<div>We can help you to get a bank guarantee with confirmation in the register. All the banks of Equador.</div>
+		</div>
+		<div id="img_txt_and_form">
+			<div>
+				<h4>Apply</h4>
+				<p>and get free consultation</p>
+				<button>Apply</button>
+				<p>Applying doesn't entail any obligations</p>
+			</div>		
+			<div>
+				<h4>100% abiding of the 44th and 223rd Federal Laws</h4>
+				<ul>
+    				<li>Without a promissory note</li>
+    				<li>Without a deposit</li>
+					<li>Without extra security/pledge</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div id="circles">
+		<div>
+			<h3>Why to collaborate with us?</h3>
+			<div id="row_3_circles">
+				<div>
+					<img src="circle.png">
+					<div>More than 7 years of experience</div>
+				</div>
+				<div>
+					<img src="circle.png">
+					<div>More than 7 years of experience</div>
+				</div>
+				<div>
+					<img src="circle.png">
+					<div>More than 7 years of experience</div>
+				</div>
+				<div>
+					<img src="circle.png">
+					<div>More than 7 years of experience</div>
+				</div>
+				<div>
+					<img src="circle.png">
+					<div>More than 7 years of experience</div>
+				</div>
+				<div>
+					<img src="circle.png">
+					<div>More than 7 years of experience</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
