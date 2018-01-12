@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<!-- Using external library for your convenience! -->
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<style type="text/css">
+		body{
+			position: static;
+			display: block;
+			max-width: 400px;
+			margin: 0 auto;
+		}
+		#loginform {
+		    position: static;
+		    border: 3px solid lightgrey;
+		}
+		#loginform input[type=text], #loginform input[type=password] {
+		    width: 100%;
+		    padding: 12px 20px;
+		    margin: 8px 0;
+		    display: inline-block;
+		    border: 1px solid #ccc;
+		    box-sizing: border-box;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+		}
+		button {
+		    background-color: green;
+		    color: white;
+		    padding: 14px 20px;
+		    margin: 8px 0;
+		    border: none;
+		    cursor: pointer;
+		    width: 100%;
+		}
+		button:hover {
+		    opacity: 0.75;
+		}
+		#cancelbtn {
+		    width: auto;
+		    padding: 10px 18px;
+		    background-color: #f44336;
+		}
+		#container {
+		    margin: 0;
+		    padding: 15px;
+		}
+		#cancel_container{
+			position: relative;
+			padding: 15px;
+			background-color:#f1f1f1
+		}
+		span#psw{ /*forgot your password?*/
+		    float: right;
+		    font-size: 0.75em;
+		    color: grey;
+		    padding: 18px 10px;
+		}
+		span#psw:after{
+			display: block;
+			content: "";
+			clear: both;
+		}
+	</style>
+</head>
+<body>
+	<form id="loginform" action=""><!--PHP file-->
+		<div id="container">
+		    <label><b>Username</b></label>
+		    <input type="text" placeholder="Enter Username" name="uname" required>
+		    
+		    <label><b>Password</b></label>
+		    <input type="password" placeholder="Enter Password" name="psw" required>
+		    
+		    <button onclick="check_psw()">Login</button> 
+		    
+		    
+		    <!-- FIRST - compared to 2 global variables -->
+<!-- 		    <script type="text/javascript">
+		    	var correct_uname = "aru",
+					correct_psw = "fff";
+		    	function check_psw() {
+				var user = $("input[name='uname']"),
+					pass = $("input[name='psw']"),
+					msg = "Incorrect Username or Password",
+					name_value = user.val(),
+					psw_value = pass.val();
+				if (name_value==correct_uname && psw_value==correct_psw){
+					msg = "Correct!";
+				};
+				alert(msg);
+			}
+		    </script> -->
+		    <!-- END of FIRST - compared to 2 global variables -->
+
+		    <!-- SECOND* - compared to global object -->
+<!-- 		    <script type="text/javascript">
+		    	var correct_log_pass;
+		    		correct_log_pass = {
+		    			correct_uname: "aru",
+		    			correct_psw: "fff"
+		    		}
+		    	function check_psw() {
+				var user = $("input[name='uname']"),
+					pass = $("input[name='psw']"),
+					msg = "Incorrect Username or Password",
+					name_value = user.val(),
+					psw_value = pass.val();
+				if (name_value==correct_log_pass.correct_uname && psw_value==correct_log_pass.correct_psw){
+					msg = "Correct!";
+				};
+				alert(msg);
+			}
+		    </script> -->
+		    <!-- END of SECOND - compared to 2 global variables -->
+
+		    <!-- THIRD** - compared to global array of objects -->
+		    <script type="text/javascript">
+		    	var correct_log_pass;
+		    		correct_log_pass = [{correct_uname: "aru", correct_psw: "fff"},
+		    							{correct_uname: "vka", correct_psw: "vvv"},
+		    							{correct_uname: "den", correct_psw: "ddd"}];
+		    	function check_psw() {
+				var user = $("input[name='uname']"),
+					pass = $("input[name='psw']"),
+					msg = "Incorrect Username or Password",
+					name_value = user.val(),
+					psw_value = pass.val();
+					for (var i = 0; i < correct_log_pass.length; i++){
+						if (name_value==correct_log_pass[i].correct_uname && psw_value==correct_log_pass[i].correct_psw){
+						 	msg = "Correct!";
+						}; 
+					};
+					alert(msg);
+				};
+		    </script>
+		    <!-- END of THIRD - compared to global array of objects -->
+
+		    <input type="checkbox" checked="checked"> Remember me
+	  	</div>
+		<div id="cancel_container">
+		    <button type="button" id="cancelbtn">Cancel</button>
+		    <span id="psw">Forgot your <a href="#">password?</a></span>
+		</div>
+	</form>
+</body>
+</html>
