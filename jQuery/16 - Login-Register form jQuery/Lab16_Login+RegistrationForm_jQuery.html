@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<!-- Using external jq library for your convenience! -->
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="Lab16.css">
+	<script src="Lab16.js"></script>
+</head>
+<body>
+	<div id="LoginContainer">
+		<h3>Login Form</h3>
+		<form class="forms" action=""><!--PHP file-->
+			<div class="FormContainers">
+			    <label><b>Username</b></label>
+			    <input type="text" placeholder="Enter Username" name="uname" required>
+			    <label><b>Password</b></label>
+			    <input type="password" placeholder="Enter Password" name="psw" required>
+			    <button class="buttons" type="button" onclick="check_login()">Login</button> 
+			    <input type="checkbox" checked="checked"> Remember me
+		  	</div>
+			<div id="cancel_container">
+			    <button class="cancelbuttons" type="button">Cancel</button>
+			    <button class="registerbuttons" type="button" onclick="switch2registration()">Register</button>
+			    <span id="psw">Forgot your <a href="#">password?</a></span>
+			</div>
+		</form>
+	</div> <!--END of the LoginContainer-->
+
+	<div id="RegistrationContainer">
+		<h3>Registration Form</h3>
+		<form class="forms" action=""><!--PHP file-->
+			<div class="FormContainers">
+			    <label><b>Username</b></label>
+			    <input type="text" placeholder="Enter Username" name="newuname" required>
+			    <label><b>Password</b></label>
+			    <input type="password" placeholder="Enter Password" name="newpsw" required>
+			    <button class="buttons" type="button" onclick="register()">Register</button> 
+		  	</div>
+			<div id="cancel_container">
+			    <button class="cancelbuttons" type="button" onclick="switch2login()">Cancel</button>
+			</div>
+		</form>
+	</div> <!--END of the RegistrationContainer-->
+</body>
+</html>
