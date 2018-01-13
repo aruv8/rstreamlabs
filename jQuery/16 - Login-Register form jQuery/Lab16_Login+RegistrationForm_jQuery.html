@@ -8,39 +8,74 @@
 	<script src="Lab16.js"></script>
 </head>
 <body>
-	<div id="LoginContainer">
-		<h3>Login Form</h3>
-		<form class="forms" action=""><!--PHP file-->
-			<div class="FormContainers">
-			    <label><b>Username</b></label>
-			    <input type="text" placeholder="Enter Username" name="uname" required>
-			    <label><b>Password</b></label>
-			    <input type="password" placeholder="Enter Password" name="psw" required>
-			    <button class="buttons" type="button" onclick="check_login()">Login</button> 
-			    <input type="checkbox" checked="checked"> Remember me
-		  	</div>
-			<div id="cancel_container">
-			    <button class="cancelbuttons" type="button">Cancel</button>
-			    <button class="registerbuttons" type="button" onclick="switch2registration()">Register</button>
-			    <span id="psw">Forgot your <a href="#">password?</a></span>
-			</div>
-		</form>
-	</div> <!--END of the LoginContainer-->
+<!-- <div id="xbody"> -->
+	<div id="headermenu_wrapper">
+		<div id="header">
+			<p>Header</p>
+		</div> <!--END of header -->
 
-	<div id="RegistrationContainer">
-		<h3>Registration Form</h3>
-		<form class="forms" action=""><!--PHP file-->
-			<div class="FormContainers">
-			    <label><b>Username</b></label>
-			    <input type="text" placeholder="Enter Username" name="newuname" required>
-			    <label><b>Password</b></label>
-			    <input type="password" placeholder="Enter Password" name="newpsw" required>
-			    <button class="buttons" type="button" onclick="register()">Register</button> 
-		  	</div>
-			<div id="cancel_container">
-			    <button class="cancelbuttons" type="button" onclick="switch2login()">Cancel</button>
-			</div>
-		</form>
-	</div> <!--END of the RegistrationContainer-->
+		<div id="menu">
+			<ul>
+				<li><a href="">Login/Register</a>
+					<ul>
+						<li onclick="switch2login()">Login</li>
+						<li onclick="switch2registration()">Register</li>
+					</ul>
+				</li>
+				<li><a href="">Menu 2</a>
+					<ul>
+						<li>Submenu 4</li>
+						<li>Submenu 5</li>
+						<li>Submenu 6</li>
+						<li>Submenu 7</li>
+					</ul>
+				</li>
+				<li><a href="">Menu 3</a>
+					<ul>
+						<li>Submenu 8</li>
+						<li>Submenu 9</li>
+					</ul>
+				</li>
+			</ul>
+		</div> <!--END of menu-->
+	</div><!--END of headermenu_wrapper -->
+
+	<div id="main">
+		<div id="LoginContainer">
+			<h3>Login Form</h3>
+			<form class="forms" action=""><!--PHP file-->
+				<div class="FormContainers">
+				    <label><b>Username</b></label>
+				    <input type="text" placeholder="Enter Username" name="uname" required>
+				    <label><b>Password</b></label>
+				    <input type="password" placeholder="Enter Password" name="psw" required>
+				    <button class="buttons" type="button" onclick="check_login()">Login</button> 
+				    <input type="checkbox" checked="checked"> Remember me
+			  	</div>
+				<div id="cancel_container">
+				    <button class="cancelbuttons" type="button">Cancel</button>
+				    <button class="registerbuttons" type="button" onclick="switch2registration()">Register</button>
+				    <span id="psw">Forgot your <a href="#">password?</a></span>
+				</div>
+			</form>
+		</div> <!--END of the LoginContainer-->
+
+		<div id="RegistrationContainer">
+			<h3>Registration Form</h3>
+			<form class="forms" action=""><!--PHP file-->
+				<div class="FormContainers">
+				    <label><b>Username</b></label>
+				    <input type="text" placeholder="Enter Username" name="newuname" required>
+				    <label><b>Password</b></label>
+				    <input type="password" placeholder="Enter Password" name="newpsw" required>
+				    <button class="buttons" type="button" onclick="register()">Register</button> 
+			  	</div>
+				<div id="cancel_container">
+				    <button class="cancelbuttons" type="button" onclick="switch2login()">Cancel</button>
+				</div>
+			</form>
+		</div> <!--END of the RegistrationContainer-->
+	</div> <!--END of main-->	
+<!--</div>	END of xBody-->	
 </body>
 </html>
