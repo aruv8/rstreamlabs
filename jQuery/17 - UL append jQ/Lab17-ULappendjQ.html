@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<style type="text/css">
+		body{
+			position: static;
+			width: 600px;
+			min-width: 400px;
+			min-height: 100%;
+			margin: 0 auto;
+			padding: 0;
+			background-color: #eee;
+		}
+		.boxsizing{
+			box-sizing: border-box;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+		}
+		#maincontainer{
+			position: relative;
+			display: block;
+			width: 100%;
+			height: 100%;
+			padding: 16px;
+			background-color: white;
+		}
+		#maincontainer:after{
+			display: block;
+			content: "";
+			clear: both;
+		}
+		#listcontainer{
+			float: left;
+			position: static;
+			display: block;
+			width: 50%;
+			background-color: #cfc;
+		}
+		#inputcontainer{
+			float: left;
+			position: relative;
+			display: block;
+			width: 50%;
+		}
+	</style>
+</head>
+<body>
+	<div id="maincontainer">
+		<div id="listcontainer">
+			<ul id="myul">
+				<li>First</li>
+				<li>Second</li>
+				<li>Third</li>
+			</ul>
+		</div>
+		<div id="inputcontainer">
+			<input type="text" name="inputfield"><br>
+			<button type="button" onclick="add2list()" name="button4inputdata">Add</button>
+		</div>	
+	</div>
+	<script type="text/javascript">
+		function add2list(){
+			var inputf = $("input[name='inputfield']"),
+				newdata = inputf.val(),
+				parent = $("#myul"),
+				newli =	$("<li></li>").text(newdata);
+
+			$(newli).appendTo(parent);
+		}
+	</script>
+</body>
+</html>
