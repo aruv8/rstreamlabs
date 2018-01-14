@@ -74,7 +74,7 @@
 		</div>
 		<div id="inputcontainer">
 			<input type="text" name="inputfield"><br>
-			<button type="button" onclick="add2table()" name="button4inputdata">Add</button>
+			<button type="button" onclick="add2tableX()" name="button4inputdata">Add</button>
 		</div>	
 	</div>
 	<script type="text/javascript">
@@ -87,6 +87,16 @@
 				parent = $("#mytable");
 
 			$('#mytable tr:last').after('<tr><td>'+(++tablelastcounter)+'</td><td>'+newdata+'</td></tr>');
+		}
+
+		function add2tableX(){
+			var inputf = $("input[name='inputfield']"),
+				newdata = inputf.val(),
+				parent = $("#mytable"),
+				tr;
+			tr = $('<tr>').appendTo(parent);
+			$('<td>').text(++tablelastcounter).appendTo(tr);
+			$('<td>').text(newdata).appendTo(tr);
 		}
 	</script>
 </body>
