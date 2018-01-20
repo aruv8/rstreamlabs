@@ -1,99 +1,68 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<title></title>
-	<!-- Using external jq library for your convenience! -->
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="Lab19.css">
-	<script src="Lab19.js"></script>
+    <title></title>
+    <!-- Using external jq library for your convenience! -->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="Lab19.css">
+    <script src="Lab19.js"></script>
 </head>
+
 <body>
-	<div id="headermenu_wrapper">
-		<div id="header">
-			<!-- Header Login form -->
-			<div class="header_login" id="header_login">
-			    <input type="text" placeholder="Enter Username" name="uname" required>
-			    <input type="password" placeholder="Enter Password" name="psw" required><br>
-			    <button type="button" onclick="website.check_login()">Login</button>
-			    <button type="button" onclick="switch_to_form_LRG(0,1,0)">Register</button> 
-			    <input type="checkbox" checked="checked" id="checkbox_lastlogin">Remember me
-			</div>
-			<!-- Header Registration form -->
-			<div class="header_login" id="header_registration">
-				<input type="text" placeholder="Enter Username" name="newuname" required>
-			    <input type="password" placeholder="Enter Password" name="newpsw" required><br>
-			    <button type="button" onclick="website.register()">Register</button> 
-			    <button type="button" onclick="switch_to_form_LRG(1,0,0)">Cancel</button> 
-			</div>
-			<!-- Header Greetings form -->
-			<div class="header_login" id="header_greetings_and_logout">
-				<p>Welcome</p>
-				<button type="button" onclick="website.logout()">Logout</button> 
-			</div>
-			
-		</div> <!--END of header -->
-
-		<div id="menu">
-			<ul>
-				<li><a href="">Login/Register</a>
-					<ul>
-						<li onclick="switch_to_form_LRG(1,0,0)">Login</li>
-						<li onclick="switch_to_form_LRG(0,1,0)">Register</li>
-					</ul>
-				</li>
-				<li><a href="">Menu 2</a>
-					<ul>
-						<li>Submenu 4</li>
-						<li>Submenu 5</li>
-						<li>Submenu 6</li>
-						<li>Submenu 7</li>
-					</ul>
-				</li>
-				<li><a href="">Menu 3</a>
-					<ul>
-						<li>Submenu 8</li>
-						<li>Submenu 9</li>
-					</ul>
-				</li>
-			</ul>
-		</div> <!--END of menu-->
-	</div><!--END of headermenu_wrapper -->
-
-<!-- 	<div id="main"> 
-		<div id="LoginContainer">
-			<h3>Login Form</h3>
-			<form class="forms" action="">
-				<div class="FormContainers">
-				    <label><b>Username</b></label>
-				    <input type="text" placeholder="Enter Username" name="uname" required>
-				    <label><b>Password</b></label>
-				    <input type="password" placeholder="Enter Password" name="psw" required>
-				    <button class="buttons" type="button" onclick="check_login()">Login</button> 
-				    <input type="checkbox" checked="checked" id="checkbox_lastlogin"> Remember me
-			  	</div>
-				<div id="cancel_container">
-				    <button class="cancelbuttons" type="button">Cancel</button>
-				    <button class="registerbuttons" type="button" onclick="switch2registration()">Register</button>
-				    <button class="registerbuttons" type="button" onclick="logout()">Logout</button>
-				</div>
-			</form>
-		</div> 
-
-		<div id="RegistrationContainer">
-			<h3>Registration Form</h3>
-			<form class="forms" action="">
-				<div class="FormContainers">
-				    <label><b>Username</b></label>
-				    <input type="text" placeholder="Enter Username" name="newuname" required>
-				    <label><b>Password</b></label>
-				    <input type="password" placeholder="Enter Password" name="newpsw" required>
-				    <button class="buttons" type="button" onclick="register()">Register</button> 
-			  	</div>
-				<div id="cancel_container">
-				    <button class="cancelbuttons" type="button" onclick="switch2login()">Cancel</button>
-				</div>
-			</form>
-		</div> 
-	</div>  -->
+    <div id="headermenu_wrapper">
+        <div id="header">
+            <!-- Header Login form -->
+            <div class="header_login" id="header_login">
+                <input type="text" placeholder="Enter Username" name="uname" required>
+                <input type="password" placeholder="Enter Password" name="psw" required>
+                <br>
+                <button type="button" onclick="website.check_login()">Login</button>
+                <button type="button" onclick="website.switch_to_form_LRG('registration')">Register</button>
+                <input type="checkbox" checked="checked" id="checkbox_lastlogin">Remember me
+            </div>
+            <!-- Header Registration form -->
+            <div class="header_login" id="header_registration">
+                <input type="text" placeholder="Enter Username" name="newuname" required>
+                <input type="password" placeholder="Enter Password" name="newpsw" required>
+                <br>
+                <button type="button" onclick="website.register()">Register</button>
+                <button type="button" onclick="website.switch_to_form_LRG('login')">Cancel</button>
+            </div>
+            <!-- Header Greetings form -->
+            <div class="header_login" id="header_greetings_and_logout">
+                <p>Welcome</p>
+                <button type="button" onclick="website.logout()">Logout</button>
+            </div>
+        </div>
+        <!--END of header -->
+        <div id="menu">
+            <ul>
+                <li><a href="">Login/Register</a>
+                    <ul>
+                        <li onclick="website.switch_to_form_LRG('login')">Login</li>
+                        <li onclick="website.switch_to_form_LRG('registration')">Register</li>
+                    </ul>
+                </li>
+                <li><a href="">Menu 2</a>
+                    <ul>
+                        <li>Submenu 4</li>
+                        <li>Submenu 5</li>
+                        <li>Submenu 6</li>
+                        <li>Submenu 7</li>
+                    </ul>
+                </li>
+                <li><a href="">Menu 3</a>
+                    <ul>
+                        <li>Submenu 8</li>
+                        <li>Submenu 9</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <!--END of menu-->
+    </div>
+    <!--END of headermenu_wrapper -->
 </body>
+
 </html>
