@@ -1,0 +1,165 @@
+body {
+    position: relative;
+    min-height: 100%;
+    max-width: 1000px;
+    min-width: 500px;
+    margin: 0 auto;
+}
+
+#header {
+    position: relative;
+    height: 85px;
+    background: linear-gradient(to bottom right, #ccc, #eee);
+    text-align: center;
+    overflow: hidden;
+}
+
+#main {
+    position: relative;
+    display: block;
+    width: 100%;        /*100 from the body*/
+    margin: 16px auto;
+}
+
+#header_greetings_and_logout {
+    display: none;
+}
+
+
+/*===================================*/
+/*              MENU                 */
+/*===================================*/
+
+#menu {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+#menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #888;
+}
+
+#menu li {
+    float: left;
+    width: 130px;
+    height: 50px;
+    border-right: 1px solid #bbb;
+}
+
+#menu li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 16px 16px;
+    text-decoration: none;
+    box-sizing: border-box;
+
+}
+
+#menu li:first-child a:first-child {        /*container a for home image*/
+    padding: 0;
+}
+
+#menu img {
+    padding-top: 3px;                       /*the image has to have 3px padding. WARNING!: stretches li container for 3px*/
+}
+
+#menu li a:hover {
+    background-color: #8bb;
+}
+
+
+/*===================================*/
+/*              FORMS                */
+/*===================================*/
+
+#registration_form {
+  display: none;
+  margin: auto;
+  position: relative;
+  width: 500px;
+  font-family: Tahoma, Geneva, sans-serif;
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: bold;
+  color: #09C;
+  text-decoration: none;
+  border-radius: 10px;
+  padding: 10px;
+  border: 1px solid #999;
+  border: inset 1px solid #333;
+  background: -webkit-linear-gradient(bottom, #ccc, #eee 175px);
+  background: -moz-linear-gradient(bottom, #ccc, #eee 175px);
+  background: linear-gradient(bottom, #ccc, #eee 175px);
+  -webkit-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+}
+
+#registration_form h2{
+    text-align: center;
+}
+
+.inputs {
+  width: 110px;
+  display: block;
+  border: 1px solid #999;
+  height: 15px;
+  font-size: 0.75em;
+  -webkit-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+}
+
+#header_login_form{
+    display: none;
+    position: absolute;
+    height: 75px;
+    width: 200px;
+    padding-top: 10px;
+    top: 0;
+    right: 0;
+}
+
+#header_login_form > a{         /*Registration link*/
+    position: absolute;
+    top: 21px;
+    right: 20px;
+    text-decoration: none;
+    color: #88c;
+    font-size: 0.75em; 
+}
+
+#header_login_form > span{      /*Remember me text near checkbox*/
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    text-decoration: none;
+    color: #888;
+    font-size: 0.75em;
+}
+
+#rememberme_ckeckbox_in_header{
+    position: absolute;
+    top: 57px;
+    left: 90px;
+}
+
+#login_button_in_header{
+    position: absolute;
+    top: 55px;
+    left: 0;
+}
+
+#greetings_image_in_header{ /*it's a div*/
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 85px;
+    background-color: lightyellow;
+}
