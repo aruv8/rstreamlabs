@@ -159,7 +159,7 @@ body {
     left: 0;
 }
 
-#header_greetings_and_logout {  /*form*/
+#header_greetings_and_logout{  /*form*/
     display: none;
 }
 
@@ -171,14 +171,56 @@ body {
     background-color: lightyellow;
 }
 
-#user_list{                     /*form*/
-    display: none;
-    width: 90%;                 /*of main*/
-    height: 100px;
-}
 
 
 /*===================================*/
 /*              USER LIST            */
 /*===================================*/
 
+#user_list{                     /*form*/
+    display: none;
+    width: 100%;                 /*of main*/
+    box-sizing: border-box;
+}
+
+#user_list::after{              
+    display: block;
+    content: "";
+    clear: both;
+}
+
+.user_divs{                     /*small containers with avatar and username inside*/
+    position: relative;
+    float: left;
+    margin: 0;
+    padding: 16px;
+    width: 25%;                 /*4 users in a row*/
+    height: 200px;
+    border: 1px solid #999;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+/*.user_divs:hover{
+    
+}*/
+
+.user_divs p{
+    margin: -5px;
+    padding: 0;
+}
+
+.img_containers_inside_user_divs{
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.img_containers_inside_user_divs img{
+    max-width: 100%;
+    max-height: 100%;
+}
+
+#checkbox_display_users{
+    text-align: center;
+}

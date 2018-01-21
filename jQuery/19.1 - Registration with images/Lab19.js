@@ -212,6 +212,7 @@ function GlobalObject() { //Object constructor
             for (var i = 0; i < database.length; i++) { 									//seeks entered username+pass in the database (global array)
                 if (name_value == database[i].correct_uname) {								//if user exists
                     alert("You already registered!");
+                    xthis.shouldregister = false;                                           
                     return;
                 } else {
                     xthis.shouldregister = true; 											//the only condition when everything is ok, and user can be registered
@@ -240,7 +241,15 @@ function GlobalObject() { //Object constructor
         var dblen = database.length,
             displayarea = $("#user_list"),                                                  //binds variable to form
             logform = $("#header_login_form"),
-            greetform = $("#header_greetings_and_logout");
+            greetform = $("#header_greetings_and_logout"),
+            $div,                                                                           //variable for creating new divs in a cycle
+            $uname,                                                                         //new <p> elemets with user's names
+            $uavadiv,                                                                       //new <div> containers for <img> elements
+            $uava,                                                                          //new <img> elements with user's pictures
+            $h2,                                                                            //new <h2> element with headline
+            $checkbox;                                                                      //new checkbox      
+
+        displayarea.empty();                                                                //clears area from previous list
 
         if (greetform.is(":visible")) {                                                     //have to display greetings and users. ---checks for display:[none|block], ignores visible:[true|false]
             xthis.switch_to_form_LRGU("greetings + users");                                                            
@@ -248,10 +257,20 @@ function GlobalObject() { //Object constructor
             xthis.switch_to_form_LRGU("login + users");
         }
 
-        if (dblen != 0) {                                                                     //if database exists and not empty
-            for (var i = 0; i < dblen; i++) {
-
+        if (dblen != 0) {                                                                   //if database exists and not empty
+            $h2 = $("<h2>").text('List of all users in database').appendTo(displayarea);
+            //debugger;
+            $checkbox = $("<input>", {type: 'checkbox', id: 'checkbox_display_users', checked: 'checked'}).appendTo(displayarea);
+            $("<label>", {'for': 'checkbox_display_users', text: '4 users in a row' }).appendTo(displayarea);
+            $("<br>").appendTo(displayarea);                                               
+            for (i = 0; i < dblen; i++) {                                                   //i was declared earlier, in other function, so can be used
+                $div = $("<div>", {"class": "user_divs"}).appendTo(displayarea);            //creates new divs in #user_list area
+                $uavadiv = $("<div>", {"class": "img_containers_inside_user_divs"}).appendTo($div); //creates img containers
+                $uava = $("<img>").attr("src", database[i].avatar).appendTo($uavadiv);      //inserts avatars inside img containers
+                $uname = $("<p>").text(database[i].correct_uname).appendTo($div);           //inserts user names
             }
+        } else {
+            $h2 = $("<h2>").text('Sorry, database is empty...').appendTo(displayarea);
         }
     }                                                        
 
