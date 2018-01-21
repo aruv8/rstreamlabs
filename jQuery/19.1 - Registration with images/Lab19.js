@@ -68,6 +68,16 @@ function GlobalObject() { //Object constructor
     };
 
     /**
+     * Changes greetings according to user from database
+     * @param   --
+     * @returns --
+     */
+    this.change_greetings_data = function() {      
+        $("#header_greetings_and_logout > p").text("Welcome, " + database[xthis.lastlogin].correct_uname); //changing text in the greetings form
+        $("#greetings_image_in_header > img").attr({src: database[xthis.lastlogin].avatar, height: 85});   //changes image source and set height to 85px (width adjusts automatically by browser)
+    }
+    
+    /**
      * Checks if database and lastlogin info exist in global variables, and saves it into localStorage
      * @param   --
      * @returns --
@@ -82,21 +92,21 @@ function GlobalObject() { //Object constructor
         } 
         else { 										//database exists in localStorage
             if (xthis.lastlogin > -1) { 			//if there's an information about last login (exists and not empty). Warning!!! Can't use -if(localStorage.lab19_lastlogin)- because there could be a zero!
-                xthis.switch_to_form_LRG("greetings"); 
-                $("#header_greetings_and_logout > p").text("Welcome, " + database[xthis.lastlogin].correct_uname); //changing text in the greetings form
+                xthis.switch_to_form_LRGU("greetings"); 
+                xthis.change_greetings_data();            //personalizes greetings
                 return;
             }
         }
-        xthis.switch_to_form_LRG("login");
+        xthis.switch_to_form_LRGU("login");
     };
 
     /**
      * Switches between Login, Registration, and Greetings forms
-     * @param   {string} LRG 	- what type of form should be displayed: login, registration, greetings
+     * @param   {string} LRGU 	- what type of form should be displayed: login, registration, greetings, users list. 
      * @returns --
      */
-    this.switch_to_form_LRG = function(LRG) {
-        switch (LRG) {
+    this.switch_to_form_LRGU = function(LRGU) {
+        switch (LRGU) {
             case "login":
                 $("#registration_form").hide();
                 $('#header_greetings_and_logout').hide();
@@ -106,11 +116,24 @@ function GlobalObject() { //Object constructor
                 $("#registration_form").show();
                 $("#header_login_form").hide();
                 $('#header_greetings_and_logout').hide();
+                $('#user_list').hide();
                 break;
             case "greetings":
                 $("#registration_form").hide();
                 $("#header_login_form").hide();
                 $('#header_greetings_and_logout').show();
+                break;
+            case "login + users":
+                $("#registration_form").hide();
+                $("#header_login_form").show();
+                $('#header_greetings_and_logout').hide();
+                $('#user_list').show();
+                break;
+            case "greetings + users":
+                $("#registration_form").hide();
+                $("#header_login_form").hide();
+                $('#header_greetings_and_logout').show();
+                $('#user_list').show();
                 break;
         }
     };
@@ -123,7 +146,7 @@ function GlobalObject() { //Object constructor
     this.logout = function() { 																//called by logout button
         xthis.lastlogin = -1; 																//reset login info in global variable
         xthis.saveLS("lab19_lastlogin", ""); 												//reset login info in localStorage 
-        xthis.switch_to_form_LRG("login"); 													 
+        xthis.switch_to_form_LRGU("login"); 													 
     };
 
     /**
@@ -151,10 +174,8 @@ function GlobalObject() { //Object constructor
                         xthis.saveLS("lab19_lastlogin", xthis.lastlogin);					//writes the index (who was logged in) into the localstore
                     }
                     
-                    $("#header_greetings_and_logout > p").text("Welcome, " + database[xthis.lastlogin].correct_uname); //changes text in Greetings form
-                    $("#greetings_image_in_header > img").attr({src: database[xthis.lastlogin].avatar, height: 85});   //changes image source and set height to 85px (same as header)
-
-                    xthis.switch_to_form_LRG("greetings"); 
+                    xthis.change_greetings_data();                                                //personalizes greetings
+                    xthis.switch_to_form_LRGU("greetings"); 
                     msg = "Correct!";
                     break; 																	//ejects from the cycle
                 }
@@ -206,22 +227,29 @@ function GlobalObject() { //Object constructor
             database.push({ correct_uname: name_value, correct_psw: psw_value, avatar: alink_value }); 			//adds new user, pass, and avatar into the local array of objects (database)
             xthis.saveLS("lab19_database", database);										//adds new user+pass into localStorage
             xthis.shouldregister = false;													//changes back registration flag after user+pass were registered
-            xthis.switch_to_form_LRG("login");
+            xthis.switch_to_form_LRGU("login");
         }
     };
 
     /**
-     * Reads Users and Avatarts from database, and displays all of them in #main
+     * Reads Users and Avatarts from database, and displays all of them in form inside of #main
      * @param   --
      * @returns --
      */
-    this.display_users = function() {                                                       //called by Users menu button
-        var dbl = database.length,
-            $area = $("#main");                                                             //binds variable to #main div
-            $area.css('background-color', '#eee');                                          //test for changing background color of #main !!!WARNING
+    this.display_users_form = function() {                                                  //called by Users menu button
+        var dblen = database.length,
+            displayarea = $("#user_list"),                                                  //binds variable to form
+            logform = $("#header_login_form"),
+            greetform = $("#header_greetings_and_logout");
+
+        if (greetform.is(":visible")) {                                                     //have to display greetings and users. ---checks for display:[none|block], ignores visible:[true|false]
+            xthis.switch_to_form_LRGU("greetings + users");                                                            
+        } else {                                                                            //login is visible
+            xthis.switch_to_form_LRGU("login + users");
+        }
 
         if (dbl != 0) {                                                                     //if database exists and not empty
-            for (var i = 0; i < dbl; i++) {
+            for (var i = 0; i < dblen; i++) {
 
             }
         }

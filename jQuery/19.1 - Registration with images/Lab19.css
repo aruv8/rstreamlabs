@@ -21,10 +21,6 @@ body {
     margin: 16px auto;
 }
 
-#header_greetings_and_logout {
-    display: none;
-}
-
 
 /*===================================*/
 /*              MENU                 */
@@ -78,11 +74,10 @@ body {
 /*              FORMS                */
 /*===================================*/
 
-#registration_form {
+.forms {
   display: none;
   margin: auto;
   position: relative;
-  width: 500px;
   font-family: Tahoma, Geneva, sans-serif;
   font-size: 14px;
   line-height: 24px;
@@ -101,10 +96,6 @@ body {
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
 }
 
-#registration_form h2{
-    text-align: center;
-}
-
 .inputs {
   width: 110px;
   display: block;
@@ -114,6 +105,14 @@ body {
   -webkit-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+}
+
+#registration_form{
+    width: 500px;
+}
+
+#registration_form h2, #user_list h2{
+    text-align: center;
 }
 
 #header_login_form{
@@ -133,6 +132,10 @@ body {
     text-decoration: none;
     color: #88c;
     font-size: 0.75em; 
+}
+
+#header_login_form > a:hover{
+    color: #55c;
 }
 
 #header_login_form > span{      /*Remember me text near checkbox*/
@@ -156,10 +159,26 @@ body {
     left: 0;
 }
 
-#greetings_image_in_header{ /*it's a div*/
+#header_greetings_and_logout {  /*form*/
+    display: none;
+}
+
+#greetings_image_in_header{     /*div*/
     position: absolute;
     top: 0;
     right: 0;
     height: 85px;
     background-color: lightyellow;
 }
+
+#user_list{                     /*form*/
+    display: none;
+    width: 90%;                 /*of main*/
+    height: 100px;
+}
+
+
+/*===================================*/
+/*              USER LIST            */
+/*===================================*/
+
