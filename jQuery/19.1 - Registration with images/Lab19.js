@@ -248,7 +248,7 @@ function GlobalObject() { //Object constructor
             xthis.switch_to_form_LRGU("login + users");
         }
 
-        if (dbl != 0) {                                                                     //if database exists and not empty
+        if (dblen != 0) {                                                                     //if database exists and not empty
             for (var i = 0; i < dblen; i++) {
 
             }
