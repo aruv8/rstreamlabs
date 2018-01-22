@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Lab 19.1</title>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> <!-- Using external jQ library for your convenience -->
+    <link rel="stylesheet" type="text/css" href="Lab19.css">
+    <script src="Lab19.js"></script>
+</head>
+
+<body>
+    <div id="header">
+        <form id="header_login_form">
+                <input  class="inputs" type="text"     placeholder="Enter Username" name="uname" required>
+                <input  class="inputs" type="password" placeholder="Enter Password" name="psw"   required>
+                <a      href="javascript:void(0);" onclick="website.switch_to_form_LRGU('registration')">Registration</a>
+                <button id="login_button_in_header" type="button" onclick="website.check_login()">Login</button>
+                <input  id="rememberme_ckeckbox_in_header" type="checkbox" checked="checked"><span id="checkbox_lastlogin_text"<label for="rememberme_ckeckbox_in_header">Remember me</span>
+        </form>
+        
+        <form id="header_greetings_and_logout">             <!-- Header Greetings form -->
+            <p>Welcome</p>   <!-- jQuery will change it-->                       
+            <button type="button" onclick="website.logout()">Logout</button>
+            <div id="greetings_image_in_header">
+                <img src=""> <!-- jQuery will change it-->
+            </div>
+        </form>
+    </div>
+    
+    <div id="menu">
+        <ul>
+            <li><a href=""><img src="http://workflow.arts.ac.uk/artefact/file/download.php?file=2363954&view=253565" width="45" heigth="45" alt="Home Image"></a></li>
+            <li onclick="website.display_users_form()"><a href=#>Users</a></li>
+        </ul>
+    </div>
+    
+    <div id="main">
+        <form class="forms" id="registration_form">                       <!-- Registration form -->
+            <h2>Registration</h2>
+            <input type="text" placeholder="Enter Username" name="newuname" required><br>
+            <input type="password" placeholder="Enter Password" name="newpsw" required><br>
+            <input id="input_avatar_URL_registration_form" placeholder="Link to your avatar" name="avatarURL" type="url" list="defaultURLs" required><br>
+                <datalist id="defaultURLs">
+                  <option value="https://image.freepik.com/free-photo/cute-cat-picture_1122-449.jpg" label="Cute Cat">
+                  <option value="https://i0.wp.com/www.hoaxorfact.com/wp-content/uploads/2016/10/Picture-of-Amazing-Animal-Found-in-Nepal.jpg" label="Nepal Animal">
+                  <option value="https://www.iansmartphotography.com/gallery/var/albums/Miscellaneous/Fruit%20Faces%2011JAN09%20013%20PS%204x4.jpg?m=1328927870" label="Ripe Orange">
+                  <option value="https://www.todaysparent.com/wp-content/uploads/2016/03/how-to-handle-an-overly-talkative-kid-960x1280.jpg" label="Talkative Kid">
+                  <option value="https://stlyoungadults.com/wp-content/uploads/sites/4/2016/08/Angela-Richard-640x640-Pic.png" label="Nice Girl">
+                </datalist>
+            <button type="button" onclick="website.register()">Register</button>
+            <button type="button" onclick="website.switch_to_form_LRGU('login')">Cancel</button>
+        </form>
+        
+        <form class="forms" id="user_list">                               <!-- User list -->
+        <!-- jQuery will assemble code here -->
+        </form>
+    </div>
+</body>
+
+</html>
