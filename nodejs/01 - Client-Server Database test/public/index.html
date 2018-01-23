@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>IDEX</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<style type="text/css">
+		#ta {
+			width: 600px;
+			height: 300px;
+		}
+	</style>
+</head>
+<body>
+	<h3>INDEX</h3>
+	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+	tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+	quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+	consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+	cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+	proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+	<br>
+	<input  type="text"     placeholder="Enter Username" name="uname" required>
+    <input  type="password" placeholder="Enter Password" name="psw"   required>
+	<button onclick="login()">Login</button>
+	<hr>
+	<textarea id="ta"></textarea>
+
+	<script type="text/javascript">
+
+
+		function login() {
+			var p,
+				user = $("input[name = 'uname']").val(),
+				pass = $("input[name = 'psw']").val();
+				
+			if (user&&pass) {
+				p = $.ajax({
+					url: '/login',
+					data: {name: user, password: pass},
+					method: 'get' // default
+				});
+			} else {
+				alert("Empty field detected");
+				return;
+			}
+			
+			p.done(function(data) {
+				console.log('** data', data);
+				switch (data) {
+					case "1":
+						alert("Login correct");
+						break;
+					default:
+						alert("I don't talk to strangers");
+						break;
+				}
+			});
+		}
+	</script>
+
+</body>
+</html>
