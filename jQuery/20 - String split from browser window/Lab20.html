@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>String Splitter</title>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+	<h2>String Splitter</h2>
+	<input style="width: 500px" type="text" name="big_data" placeholder="Please, input a complex expression separated by '&'" list="default_expressions" required>
+	<datalist id="default_expressions">
+	  <option value="x=5&y=1&z=abc">
+	  <option value="strain=kush&price=200&color=white">
+	  <option value="year=2000&place=Houston&action=launch&budjet=96mln">
+	</datalist>
+	<button onclick="splt()">Split</button>
+	<button onclick="string_from_URL()">Split URL</button>
+	<br>
+	<p></p>
+	
+	<script type="text/javascript">
+		
+		function safelyParseJSON (json) {
+		  	var parsed;
+		  
+		  	try {
+		    	parsed = JSON.parse(json)
+		  	} catch (e) {
+		    	return (json);
+			}
+				return (parsed);
+		}
+		
+		function splt() {
+			var obj = {},
+				src_string = $("input[name='big_data']").val(),
+				res,
+				res_left,
+				res_right;
+			
+			if (src_string) {
+				res = src_string.split("&");
+			} else {
+				alert ("The string is empty");
+				return;
+			}	
+			if (res) {
+				for (var i = 0; i < res.length; i++) {
+					res_left = res[i].split("=")[0];
+					res_right = res[i].split("=")[1];
+					obj[res_left] = safelyParseJSON(res_right);
+				}
+				$("p:first").text("The result: " + JSON.stringify(obj) + ". Pls, check the console.");
+				console.log(obj);
+			}	
+		}
+
+		function string_from_URL() {
+			var obj = {},
+				url = window.location.href,
+				src_string,
+				res,
+				res_left,
+				res_right;
+			
+			src_string = url.split("?")[1]; //right part
+			if (src_string) {
+				res = src_string.split("&");
+			} else {
+				alert ("The string from URL doesn't contain '?'.");
+				return;
+			}	
+			if (res) {
+				for (i = 0; i < res.length; i++) {
+					res_left = res[i].split("=")[0];
+					res_right = res[i].split("=")[1];
+					obj[res_left] = safelyParseJSON(res_right);
+				}
+				$("p:first").text("The result: " + JSON.stringify(obj) + ". Pls, check the console.");
+				console.log(obj);
+			}
+		}
+
+		/*window.onhashchange = function() { 
+		    url_string();  
+		}*/
+
+		/*window.addEventListener('hashchange', function() {
+		    url_string();
+		}, false);*/
+
+		/*window.location.href.change(function(){
+	    	alert("The URL has been changed.");
+	    });*/
+
+	</script>
+</body>
+</html>
