@@ -1,0 +1,396 @@
+html {
+	min-height: 100%;
+}
+
+/* Fixed width */
+body {
+	margin: 0;
+	padding-top: 0;
+	min-height: 100%;
+    min-width: 967px;
+	background-image: url("https://static.lanet.ua/css/img/body_bg-noise_05.gif");
+	background-repeat: repeat;
+	color: #333;
+	font: 15px 'Open Sans', Calibri, Arial, Helvetica, Sans-serif;
+}
+
+.arial_font {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/*===================================*/
+/*          HEADER + MENU            */
+/*===================================*/
+
+/* Upper fixed navigation, currently a decoration */
+#top_nav {						
+	position: fixed;
+	top: 0;
+	height: 64px;
+	width: 100%;
+	border-bottom: 4px solid white;
+	box-shadow: 1px 1px #b1aeae; /*grey*/
+	box-sizing: border-box;
+	z-index: 1;
+}
+
+/* Including upper fixed menu and main tiled menu */
+header {
+	position: relative;
+	margin-top: 64px;
+	padding: 20px 0;
+    width: 100%;
+    background-image: url("https://static.lanet.ua/css/img/body_bg-noise-dark.gif");
+    background-repeat: repeat;
+}
+
+#container_4tiles_mainmenu {
+    float: left;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    height: 150px;
+    max-width: 750px;
+    overflow: hidden; /* Hides animated tiles */
+}
+
+#mainmenu {
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+#mainmenu::after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+/* First text inside tiles in main menu */
+#container_4tiles_mainmenu p {
+	margin: -23px 0;       
+    text-align: center;
+}
+
+/* Second text inside tiles in main menu (shown after animation) */
+#container_4tiles_mainmenu span > p{
+    padding: 40px 10px;       
+    text-align: center;
+}
+
+/*container for menu list*/
+#mainmenu ul {					
+	list-style: none;
+	margin: 0 0 -6px;	/* Somehow it adds margin in the bottom so this is non-feng-shui temporary correction */
+	padding: 0;
+}
+
+/*menu "li" containers*/
+#mainmenu ul > li {				
+	display: inline-block;
+    position: relative;
+    margin: 0 4px 0 0;
+	overflow: hidden;
+}
+
+/* Login form in header */
+#header_login {
+	position: relative;
+	float: right;
+	margin: 0;
+	padding: 0;
+	width: 200px;
+	height: 150px;
+}
+
+/* Greetings form in header */
+#header_greetings {
+	display: none;
+	position: relative;
+	float: right;
+	margin: 0;
+	width: 200px;
+	height: 150px;
+	color: white;
+	font-size: 15px;	
+}
+
+#header_greetings p {
+    margin: 0;
+    padding-bottom: 2px;
+    text-align: center;
+    font-weight: 600;
+    color: #455a64;
+}
+
+/* Container for avatar in greetings form in header*/
+#greetings_image_c {    
+    text-align: center; /* To center image*/
+    margin: 0;
+    padding: 0;
+}
+
+/*===================================*/
+/*              WIN10                */
+/*===================================*/
+
+.darkblue {
+	background-color: #00619d;
+}
+
+.lightblue {
+	background-color: #0093d7;
+}
+
+.lbgrey {
+	background-color: #607d8b;
+}
+
+.grey {
+	background-color: #455a64;
+}
+
+.animated_square_tile {
+	position: relative;
+	margin: 0;
+	width: 180px;
+	height: 150px;
+	padding: 132px 0;
+	color: white;
+	background: linear-gradient(#00619d, #005386);
+	font-size: 15px;
+	transition: all .25s ease-out;
+	cursor: pointer;
+	overflow: hidden;
+    box-sizing: border-box;
+}
+
+.animated_square_tile span {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    background-color: #0076bf;
+    width: 180px;
+    height: 120px;
+}
+
+.animated_square_tile:hover{
+    transform: translate(0, -90px);
+}
+
+/*===================================*/
+/*         WIN10 CHECKBOXES          */
+/*===================================*/
+
+/* The container */
+.container {
+    display: block;
+    position: relative;
+    padding: 5px 35px;
+    margin: 0;
+    font-size: 15px;
+    color: #5f8ba7;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.container input {
+    position: absolute;
+    opacity: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 23px;
+    width: 23px;
+    background-color: #eee;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container input:checked ~ .checkmark {
+    background-color: #0093d7;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+    left: 8px;
+    top: 4px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+
+/*===================================*/
+/*            MAIN CONTENT           */
+/*===================================*/
+
+main {
+    position: relative;
+    margin: 0 auto;
+    padding-top: 20px;
+    height: 100%;
+    max-width: 1000px;
+}
+
+.website-page {                 /* For # navigation */
+	display: none;
+}
+
+/*===================================*/
+/*              FORMS                */
+/*===================================*/
+
+.forms {
+  margin: auto;
+  position: relative;
+  font-family: Tahoma, Geneva, sans-serif;
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: bold;
+  color: #09C;
+  text-decoration: none;
+  border-radius: 10px;
+  padding: 10px;
+  border: 1px solid #999;
+  border: inset 1px solid #333;
+  background: -webkit-linear-gradient(bottom, #ccc, #eee 175px);
+  background: -moz-linear-gradient(bottom, #ccc, #eee 175px);
+  background: linear-gradient(bottom, #ccc, #eee 175px);
+  -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+}
+
+.header_inputs {
+	background-color: white;
+    border: 1px solid #ccc;
+    color: #a8a8a8;
+    font-size: 15px;
+    margin: 0 0 1px;
+    padding: 9px 12px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.buttons {
+    color: white;
+    padding: 12px 0;
+    margin: 5px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    font-size: 15px;
+}
+
+.header_inputs:focus {
+    outline: 1px solid #ccc;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+}
+
+/*.buttons:hover {
+    outline: 2px solid white;
+}*/
+
+#registration_form{
+    width: 500px;
+}
+
+#registration_form h2, #user_list h2{
+    text-align: center;
+}
+
+/*===================================*/
+/*              USER LIST            */
+/*===================================*/
+
+#user_list{   /* Form */
+    width: 100%;                 
+    box-sizing: border-box;
+}
+
+#outer_div_for_user_list{
+    position: relative;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#outer_div_for_user_list::after{
+    display: block;
+    content: "";
+    clear: both;
+}
+
+
+/*===================================*/
+/*         USER LIST as Tiles        */
+/*===================================*/
+
+.user_tiles_divs{                     /*small containers with avatar and username inside*/
+    position: relative;
+    float: left;
+    margin: 0;
+    padding: 0 0 45px 0;
+    width: 25%;                       /*25% == 4 users in a row*/
+    height: 200px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    text-align: center;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.user_tiles_divs:hover{
+    transform: scale(0.9);
+}
+
+.img_containers_inside_user_tiles_divs{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.img_containers_inside_user_tiles_divs img{
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.user_tiles_divs p{
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+}
+
+
+/*===================================*/
+/*      SCREEN IS LESS THAN 967px    */
+/*===================================*/
+/*@media screen and (min-width: 760px) {
+    
+}*/
