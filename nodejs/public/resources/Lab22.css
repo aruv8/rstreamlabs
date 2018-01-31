@@ -264,24 +264,16 @@ main {
 /*===================================*/
 
 .forms {
-  margin: auto;
+  margin: 0 auto;
+  padding: 10px;
   position: relative;
-  font-family: Tahoma, Geneva, sans-serif;
-  font-size: 14px;
+  font-size: 15px;
   line-height: 24px;
   font-weight: bold;
-  color: #09C;
+  color: #00619d;            /*dark blue*/
+  background-color: #eee;
   text-decoration: none;
-  border-radius: 10px;
-  padding: 10px;
-  border: 1px solid #999;
-  border: inset 1px solid #333;
-  background: -webkit-linear-gradient(bottom, #ccc, #eee 175px);
-  background: -moz-linear-gradient(bottom, #ccc, #eee 175px);
-  background: linear-gradient(bottom, #ccc, #eee 175px);
-  -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
-  -moz-box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+  border: 5px solid #0076bf; /*blue*/
 }
 
 .header_inputs {
@@ -290,6 +282,17 @@ main {
     color: #a8a8a8;
     font-size: 15px;
     margin: 0 0 1px;
+    padding: 9px 12px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form_inputs {
+    background-color: white;
+    border: 1px solid #ccc;
+    color: #a8a8a8;
+    font-size: 15px;
+    margin: 0 0 10px;
     padding: 9px 12px;
     width: 100%;
     box-sizing: border-box;
@@ -305,7 +308,7 @@ main {
     font-size: 15px;
 }
 
-.header_inputs:focus {
+.header_inputs:focus .form_inputs:focus {
     outline: 1px solid #ccc;
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
 }
@@ -315,7 +318,7 @@ main {
 }*/
 
 #registration_form{
-    width: 500px;
+    width: 400px;
 }
 
 #registration_form h2, #user_list h2{
@@ -356,7 +359,7 @@ main {
     padding: 0 0 45px 0;
     width: 25%;                       /*25% == 4 users in a row*/
     height: 200px;
-    border: 1px solid #ddd;
+    /*border: 1px solid #ddd;*/
     box-sizing: border-box;
     text-align: center;
     cursor: pointer;
@@ -364,7 +367,7 @@ main {
 }
 
 .user_tiles_divs:hover{
-    transform: scale(0.9);
+    /*transform: scale(0.9);*/
 }
 
 .img_containers_inside_user_tiles_divs{
@@ -381,10 +384,26 @@ main {
     max-height: 100%;
 }
 
-.user_tiles_divs p{
-    margin: 0;
+/* Backround for user names; CURRENTLY UNUSED*/
+/*.user_name_divs {
+    position: relative;
+    bottom: 5px;
     padding: 0;
-    font-weight: normal;
+    margin: 0 auto;
+    width: 80%;
+    height: 60px;
+    background: rgba(0, 0, 0, 0.25);
+    box-sizing: border-box;
+}*/
+
+/* Text above user avatars in user list */
+.user_tiles_divs p{
+    position: relative;
+    text-align: center;
+    margin: 0;
+    padding: 5px;
+    font-size: 20px;
+    font-weight: 500;
 }
 
 

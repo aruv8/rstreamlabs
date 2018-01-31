@@ -2,8 +2,9 @@
 
 var fs = require('fs'),
 	dbModule,
-	db, 	// Parsed database file
-	i, 		
+	db, 		// Parsed database file
+	i,			// for cycles
+	obj = {},	// for response (return) 		
 
 dbModule = {
 	database: 'database.txt',
@@ -11,30 +12,21 @@ dbModule = {
 	/**
 	 * Checks if user exist in database
 	 * @param {string} username
-	 * @param {string} password [optional]
-	 * @returns {string}
+	 * @param {string} password
+	 * @returns {object}||{boolean}
 	 */
 	login: function(username, pswd) {
 		db = JSON.parse(fs.readFileSync(this.database, 'utf8')); //reads database file into array of objects [ {}, {}, {} ... ]
-		//console.log (db.length + " " + username + " " + pswd);
-		if (pswd) { 	// If optional parameter password exists
-			for (i = 0; i < db.length; i++) {
-				if ((db[i].name == username) && (db[i].password == pswd)) { 
-					console.log ("User exist: " + db[i].name);
-					return (db[i].name + "&" + db[i].avatar);
-				}
+		for (i = 0; i < db.length; i++) {
+			if ((db[i].name == username) && (db[i].password == pswd)) { 
+				obj.name = db[i].name;
+				obj.ava = db[i].avatar;
+				console.log ("Successfull login: " + username);
+				return obj;
 			}
-			console.log ("Unsuccessfull login: " + username);
-			return "0";
-		} else { // If checked only username
-			for (i = 0; i < db.length; i++) {
-				if (db[i].name == username) { 
-					console.log ("User exist: " + username);
-					return username; //user exists
-				} 
-			}
-			return "0";
 		}
+		console.log ("Unsuccessfull login: " + username);
+		return false;
 	},
 
 	/**
@@ -42,12 +34,20 @@ dbModule = {
 	 * @param {string} new_log
 	 * @param {string} new_pass
 	 * @param {string} new_ava
-	 * @returns {boolean}
+	 * @returns {string}||{boolean}
 	 */
 	register: function(new_log, new_pass, new_ava) {
-		db = JSON.parse(fs.readFileSync(this.database, 'utf8')); 		 //reads database file into array of objects [ {}, {}, {} ... ]
+		db = JSON.parse(fs.readFileSync(this.database, 'utf8')); 		 
+		for (i = 0; i < db.length; i++) {
+			if (db[i].name == new_log) { 
+				console.log ("Unsuccessful registration, such user already exist: " + new_log);
+				return false; 
+			} 
+		}
+		console.log ("Successful registration: " + new_log);
 		db.push({ name: new_log, password: new_pass, avatar: new_ava }); //push new user to db
 		fs.writeFileSync(this.database, JSON.stringify(db));
+		return new_log;
 	},
 
 	/**
