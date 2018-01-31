@@ -19,6 +19,46 @@ body {
 }
 
 /*===================================*/
+/*          LOADING INDICATOR        */
+/*===================================*/
+
+#loading_message_outerdiv {
+    display: none;
+    position: fixed;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Black transparent 50% */
+    z-index: 2;
+}
+
+/* Internal smaller div */
+#loading_message_outerdiv div {
+    position: relative;
+    top: 33%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: 300px;
+    height: 150px;
+    background-color: #eee;
+    border: 5px solid white;
+}
+
+#loading_message_outerdiv img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#loading_message_outerdiv p {
+    font-size: 24px;
+    text-align: center;
+    font-weight: 500;
+    color: #333;
+}
+
+/*===================================*/
 /*          HEADER + MENU            */
 /*===================================*/
 

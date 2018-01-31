@@ -17,13 +17,27 @@ function GlobalObject() { 		//Object constructor
     	$displayarea,			//div for user list in main
     	$new_user,				//new user name in registration input
         $new_pass,				//new password in registration input
-        $new_avalink;			//new avatar in registration input
+        $new_avalink,			//new avatar in registration input
+        $loading;				//loading indicator (div)
+
+	/**
+	 * Catches AJAX loading (response from server)
+	 */
+	this.AJAXloading = function() {
+		$(document).ajaxStart(function () {
+	    	$loading.show();
+	  	})
+	  	$(document).ajaxStop(function () {
+	    	$loading.hide();
+	  	});
+	}
 
 	/**
 	 * The very first initializations
 	 */
 	this.initialization = function() {
 	    $(function() { 				//same as $(document).ready(function()
+			$loading = $("#loading_message_outerdiv");
 			$log_user = $("input[name = 'uname']");			
 			$log_pass = $("input[name = 'psw']");				
 			$h_greet = $('#header_greetings');					
@@ -38,6 +52,7 @@ function GlobalObject() { 		//Object constructor
 			
 			xthis.addEventHandlers();	//catching #
 			xthis.render();				//render #
+			xthis.AJAXloading();
 	    });
 	};
 
@@ -234,6 +249,7 @@ function GlobalObject() { 		//Object constructor
         	}
         });
     };
+
 
 	this.initialization();
 }

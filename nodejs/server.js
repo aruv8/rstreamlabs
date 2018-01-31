@@ -20,7 +20,7 @@ function req_proc(request_to_server, response_from_server) {
 	    respo = {},				// a response from server, begins with status
 	    the_whole_base;			// all the base in string format
 
-	switch (rdata.u.pathname) {											
+	switch (rdata.u) {											
 		case "/favicon.ico":
 		/*case "/lab22.css":
 		case "/lab22.js":
@@ -59,5 +59,7 @@ function req_proc(request_to_server, response_from_server) {
 function response(resp, code, type, content) {
 	resp.writeHead(code, {"Content-type": type});
 	resp.write(content);
-	resp.end();
+	setTimeout(function(){
+		resp.end();	
+	}, 2000);
 }

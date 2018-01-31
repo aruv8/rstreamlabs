@@ -2,7 +2,7 @@
 
 var qs = require('querystring'),
     urlSplitter = require('url'),
-
+    upath,      // to store pathname
 	u,
 	q,
 	obj = {},	// contain returns
@@ -15,7 +15,8 @@ splitter = {
 	 * @returns {object}
 	 */
 	xsplit: function (data) { //request_to_server.url in data
-		obj.u = urlSplitter.parse(data);
+		upath = urlSplitter.parse(data);
+		obj.u = upath.pathname;
 		obj.q = qs.parse(obj.u.query);
 
 		if (data != "/favicon.ico") {
