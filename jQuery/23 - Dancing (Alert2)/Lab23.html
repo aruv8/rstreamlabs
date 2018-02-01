@@ -1,0 +1,142 @@
+<!-- alert2(title, text)
+написать функцию alert2 с двумя параметрами, выводящую окошкo с указанным заголовком и сообщением. окошко красивое, 
+в духе win10, внизу кнопка ОК. при вызове функции экран застилает тёмная прозрачная пелена, поверх неё - небольшое окошко -->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Lab23</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<style type="text/css">
+		
+	body {
+		margin: 0 auto;
+		padding: 0;
+		min-height: 100%;
+		max-width: 500px;
+		background-color: #ccc;
+	}
+
+	/* outer fullscreen shaded background */
+	#message_div {
+	    display: none;
+	    position: fixed;
+	    left: 0;
+	    top: 0;
+	    height: 100%;
+	    width: 100%;
+	    background: rgba(0, 0, 0, 0.5); /* Black transparent 50% */
+	}
+
+	/* message window */
+	#message_div > div {
+	    position: relative;
+	    top: 33%;
+	    left: 50%;
+	    transform: translate(-50%, 0);
+	    width: 600px; 
+	    background-color: #eee;
+	    border: 5px solid white;
+	}
+
+	#message_header {
+		font-size: 24px;
+		font-weight: 500;
+		color: #00619d; /* blue */
+		text-align: center;
+	}
+
+	#message_text {
+		font-size: 15px;
+		font-weight: 300;
+		color: #333;
+		text-align: justify;
+		padding: 10px;
+	}
+
+	.buttons {
+	    position: relative;
+	    color: white;
+	    padding: 12px 0;
+	    margin-bottom: 10px;
+	    left: 50%;
+	    transform: translate(-50%, 0);
+	    border: none;
+	    cursor: pointer;
+	    width: 300px;
+	    font-size: 15px;
+	    background-color: #0093d7; /* light blue */
+	}
+
+	</style>
+	<script type="text/javascript">
+		var $message_div,
+			$message_header,
+			$message_text;
+
+		hide_message = function() {
+			$message_div = $("#message_div");
+			$message_div.hide();
+		};
+
+		alert2 = function (title, text) {
+			$message_header = $("#message_header");
+			$message_text = $("#message_text");
+			$message_div = $("#message_div");
+			$message_header.text(title);
+			$message_text.text(text);
+			$message_div.show();
+		};
+
+	</script>
+</head>
+<body>
+	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+	tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+	quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+	consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+	cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+	proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+	tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+	quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+	consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+	cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+	proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+	tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+	quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+	consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+	cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+	proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+	tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+	quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+	consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+	cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+	proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+	tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+	quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+	consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+	cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+	proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+	<button class="buttons" onclick="alert2('First message', 'First message text.')">Show me 1st message</button>
+	<button class="buttons" onclick="alert2('Second message', 'Second message text. ')">Show me 2nd message</button>
+
+	<div id="message_div"> <!-- outer div -->
+	    <div>	<!-- message window -->
+	    	<div>
+	    		<p id="message_header">Header</p>
+	    	</div>
+	    	<p id="message_text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+	    	tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+	    	quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+	    	consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+	    	cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+	    	proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+	    	<button class="buttons" onclick="hide_message()">Ok</button>	
+	    </div>
+	</div>
+</body>
+</html>
