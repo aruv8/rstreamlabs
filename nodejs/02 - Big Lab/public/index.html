@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Lab22</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="resources/Lab22.css">
+  	<script src="resources/Lab22.js"></script>  
+</head>
+<body>
+	<!-- Loading indicator while waiting response from server -->
+	<div id="loading_message_outerdiv">
+	    <div>
+	    	<p>Loading, please wait...</p>
+	    	<img src="resources/ajax-loader.gif" alt="Loading" />
+	    </div>
+	</div>
+
+	<header>
+		<div role="decoration" class="lightblue" id="top_nav"></div>
+		<nav id="mainmenu">
+			<div id="container_4tiles_mainmenu">
+				<ul>
+					<li page="1">
+						<div page="1" class="animated_square_tile darkblue">
+							<p class="arial_font" page="1">Home</p>
+							<span page="1"> <!-- spans need for animation -->
+								<p class="arial_font" page="1">This is text for home button.</p>
+							</span> 
+						</div>
+					</li>
+					<li page="2">
+						<div page="2" class="animated_square_tile darkblue">
+							<p class="arial_font" page="2">Registration</p>
+							<span page="2"> 
+								<p class="arial_font" page="2">This is text for registration button.</p>
+							</span> 
+						</div>
+					</li>
+					<li page="3">
+						<div page="3" class="animated_square_tile darkblue">
+							<p class="arial_font" page="3">User List</p>
+							<span page="3"> 
+								<p class="arial_font" page="3">This is text for user list button.</p>
+							</span> 
+						</div>
+					</li>
+					<li page="4">
+						<div page="4" class="animated_square_tile darkblue">
+							<p class="arial_font" page="4">About</p>
+							<span page="4"> 
+								<p class="arial_font" page="4">This is text for about button.</p>
+							</span> 
+						</div>
+					</li>
+				</ul>
+			</div>
+			
+			<div id="header_login">
+				<input  class="header_inputs" type="text"     placeholder="Enter Username" name="uname" required>
+                <input  class="header_inputs" type="password" placeholder="Enter Password" name="psw"   required>
+                <button class="buttons lightblue" type="button" onclick="website.login()">Login</button>
+                <label class="container">Remember me
+					<input type="checkbox">
+					<span class="checkmark"></span>
+				</label>
+			</div>
+			
+			<div id="header_greetings">             
+	            <p class="arial_font"></p>   <!-- jQuery will change it accordind to logged-in user-->                       
+	            <div id="greetings_image_c">
+	                <img id="greetings_image" src=""> <!-- jQuery will change it-->
+	            </div>
+	            <button class="buttons grey" type="button" onclick="website.logout()">Logout</button>
+        	</div>
+		</nav>
+	</header>
+	<main>
+		<div id="page1" class="website-page">
+			<h4>Home page</h4>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+		</div>
+		
+		<div id="page2" class="website-page">
+			<form class="forms" id="registration_form">                       
+	            <h2>Registration</h2>
+	            <input class="form_inputs" type="text" placeholder="Enter Username" name="newuname" required><br>
+	            <input class="form_inputs" type="password" placeholder="Enter Password" name="newpsw" required><br>
+	            <input class="form_inputs" id="input_avatar_URL_registration_form" placeholder="Link to your avatar" name="avatarURL" type="url" list="defaultURLs" required><br>
+	                <datalist class="form_inputs" id="defaultURLs">
+	                  <option value="https://image.freepik.com/free-photo/cute-cat-picture_1122-449.jpg" label="Cute Cat">
+	                  <option value="https://i0.wp.com/www.hoaxorfact.com/wp-content/uploads/2016/10/Picture-of-Amazing-Animal-Found-in-Nepal.jpg" label="Nepal Animal">
+	                  <option value="https://www.iansmartphotography.com/gallery/var/albums/Miscellaneous/Fruit%20Faces%2011JAN09%20013%20PS%204x4.jpg?m=1328927870" label="Ripe Orange">
+	                  <option value="http://www.adweek.com/files/blogs/wisest-kid-campbell-hed-2013.jpg" label="Old Kid">
+	                  <option value="https://stlyoungadults.com/wp-content/uploads/sites/4/2016/08/Angela-Richard-640x640-Pic.png" label="Nice Girl">
+	                </datalist>
+	            <button class="buttons lightblue" type="button" onclick="website.register()">Register</button>
+        	</form>
+		</div>
+		
+		<div id="page3" class="website-page">
+			<form class="forms" id="user_list">                               
+	        <!-- jQuery will assemble code here -->
+	        </form>
+		</div>
+		
+		<div id="page4" class="website-page">
+			<h4>About</h4>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+		</div>
+
+		
+
+	</main>
+
+</body>
+</html>
