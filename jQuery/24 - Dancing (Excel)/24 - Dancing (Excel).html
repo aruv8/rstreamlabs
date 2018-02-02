@@ -1,0 +1,170 @@
+<!-- обычная таблица. но:
+* по клику на ячейке - она выделяется (почитай про установку фокуса, tabindex)
+* при двойном клике входишь в режим редактирования ячейки (в ячейке появляется input). 
+при клик-ауте из инпута (почитай - событие blur) или нажатии Enter инпут пропадает и его содержимое 
+(то, что ты ввёл) записывается в ячейку. почитай про события клавиатуры (keydown, keypress).
+никаких onclick=, все события вешай на ячейки с помощью jq. можно повесить на все ячейки одним махом -->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Lab 24 - Excel</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<style type="text/css">
+		body {
+			min-height: 100%;
+			min-width: 500px;
+			background-color: #eee;
+		}
+
+		#outerdiv4table {
+			position: relative;
+			margin: 0;
+			padding: 0;
+			border: 5px solid white;
+			width: fit-content;
+		}
+
+		table {
+			background-color: #e5e5e5;
+			user-select: none;
+		}
+		table, td {
+		    border: 1px solid black;
+		    border-collapse: collapse;
+		}
+
+		td {
+		    text-align: left;
+		    max-width: 100px;
+		    min-width: 100px;
+		    height: 20px;
+		    overflow: hidden;
+		}
+
+		table tr:first-child, td:first-child {
+			background-color: #999;
+			text-align: center;
+		}
+
+		table td:first-child {
+			width: 50px;
+		}
+
+		input {
+			display: fixed;
+			position: relative;
+			margin: 0;
+			padding: 0;
+			width: 100%;
+			height: 20px;
+		}
+
+	</style>
+	<script type="text/javascript">
+		var i, 
+			j;
+
+		/**
+		 * The very first initializations
+		 */
+		initialization = function() {
+	    $(function() { 			// $(document).ready(function()
+			var $table,			// new table
+				$tr,			// new tr
+				$td,			// new td
+				$outerdiv,		// div for the table
+				$tabledata;		// table td's
+
+			generate_table(21, 11);
+			listen_event();
+	    	});
+		};
+
+		/**
+		 * Creates a table
+		 *@param {integer} rows
+		 *@param {integer} tds
+		 */
+		generate_table = function (rows_num, tds_num) {
+			var row_counter = 0;
+
+			$outerdiv = ("#outerdiv4table");
+			$table = $("<table>").appendTo($outerdiv);
+
+			for (i = 0; i < rows_num; i++) {
+				$tr = $("<tr>").appendTo($table);
+
+				for (j = 0; j < tds_num; j++) {
+					$td = $("<td>", {"tabindex":"1"}).appendTo($tr);
+				}
+			}
+			
+			// numeration and tabindex disable
+			$tabledata = $("table td"); 			//select all td
+			$tabledata.eq(0).attr({"tabindex":""}); //zero element in left upper corner
+			
+			for (j = 1; j < tds_num; j++) {
+				$tabledata.eq(j).attr({"tabindex":""}).text(j);
+			}
+			
+			i = 1;
+			for (i = i + tds_num; i < tds_num*rows_num; i = i + tds_num) {
+				row_counter++;
+				$tabledata.eq(i-1).attr({"tabindex":""}).text(row_counter);
+			}
+		};
+		
+		/**
+		 * Catches events on table cells (focus, doubleclick, blur, Enter, Escape)
+		 */
+		listen_event = function () {
+			var $input, 	// new input
+				cell_value,
+				text_from_focus, //temporary storage of cell value as it destroyed later
+				$focused,	// element in focus
+				$content;	// tds with tabindex
+
+			$content = $("table td[tabindex='1']");
+
+			$content.on("focus", function() {
+				$focused = $(":focus"); // stores last focused table element
+			});
+
+			$content.on("dblclick", function() {
+				text_from_focus = cell_value = $focused.text(); // focus always on table td's, as inputs are hidden; 
+				$focused.text(""); // clears text in td to make a room for input
+				$input = $("<input>").attr({"type":"text", "value":cell_value}).appendTo($focused).focus();
+				
+				$input.keydown(function (e) {
+					switch (e.keyCode) {
+						case 13: 	// Enter key
+						$focused.text($input.val()); // writes input value to td
+						$input.remove();     		 // destroys input
+						break;
+
+						case 27: 	// Escape key
+						$input.remove();
+						$focused.text(text_from_focus); //writes stored text
+						break;
+					}
+				});
+
+				$input.on("blur", function() {
+					if ($input.val()) {
+						$focused.text($input.val()); 
+					}
+					$input.remove();     			 
+				});
+			});
+		};
+		
+		initialization();	
+	</script>
+</head>
+<body>
+	<div id="outerdiv4table">
+		
+	</div>
+</body>
+</html>
