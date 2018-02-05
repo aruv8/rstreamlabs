@@ -40,6 +40,11 @@
 		    overflow: hidden;
 		}
 
+		td:focus {
+			outline: 0px solid 0; 
+			background-color: #a9c0e5; /* light blue */
+		}
+
 		table tr:first-child, td:first-child {
 			background-color: #999;
 			text-align: center;
@@ -64,24 +69,82 @@
 			height: 16px;
 		}
 
+		#contextmenu {
+			position: fixed;
+			display: none;
+			background-color: white;
+			z-index: 1;
+		}
+
+		#contextmenu ul {
+			margin: 0;
+			padding: 0;
+			user-select: none;
+			list-style-type: none;
+		}
+
+		#contextmenu li {
+		    height: 30px;
+		    cursor: pointer;
+		    border: 2px solid #00619d; /*#0093d7;*/
+		}
+
+		#contextmenu p {
+		    margin: 0;
+		    padding: 0 10px;
+		    line-height: 30px;
+		}
+
+		#contextmenu li:hover {
+			background-color: #bad0f4; /* #0093d7 */
+
+		}
+
 	</style>
 	<script type="text/javascript">
 		var i, 
-			j;
+			j,
+			$table,			// new table
+			$tr,			// new tr
+			$td,			// new td
+			$outerdiv,		// div for the table
+			col_n,			// columns total number
+			row_n,			// rows total number
+			$cont,			// context menu div
+			$context,		// tds with context 1 (right-clickable)
+			$content,		// tds with tabindex 1 (data)
+			$tar;			// element in target (TD)
 
 		/**
 		 * The very first initializations
 		 */
 		initialization = function() {
-	    $(function() { 			// $(document).ready(function()
-			var $table,			// new table
-				$tr,			// new tr
-				$td,			// new td
-				$outerdiv;		// div for the table
+		    $(function() { 			// $(document).ready(function()
+				var $menu1 = $("#contextmenu [name='add_row']");
+					$menu2 = $("#contextmenu [name='delete_row']");
 
-			generate_table(21, 11);
-			listen_event();
+				generate_table(21, 11);
+				refresh_content_context();
+				listen_event($context, $content);
+
+				// click on menu 1 (add row)
+				$menu1.on("click", function () {
+					add_row($tar);
+				});
+
+				// click on menu 2 (delete row)
+				$menu2.on("click", function () {
+					delete_row($tar);
+				});
 	    	});
+		};
+
+		/**
+		 * Applies attributes for the table
+		 */
+		apply_attributes = function () {
+			$("tr:not(:first-child) td:not(:first-child)").attr({"tabindex":"1"}); // tabindex (makes tds "selectable")
+			$("tr:not(:first-child) td:first-child").attr({"context":"1"});   	   // context (makes tds "right-clickable")
 		};
 
 		/**
@@ -90,8 +153,6 @@
 		 *@param {integer} tds
 		 */
 		generate_table = function (rows_num, tds_num) {
-			var row_counter = 0;
-
 			$outerdiv = ("#outerdiv4table");
 			$table = $("<table>").appendTo($outerdiv);
 			for (i = 0; i < rows_num; i++) {
@@ -99,7 +160,7 @@
 				for (j = 0; j < tds_num; j++) {
 					$td = $("<td>").appendTo($tr);
 					
-					// numeration
+					// initial table numeration
 					if ((i == 0) && (j != 0)) {
 						$td.text(j);
 					}
@@ -108,9 +169,29 @@
 					}
 				}
 			}
+			col_n = tds_num; // globally stores size of the table (data table)
+			row_n = rows_num;
+			apply_attributes();
+		};
+
+		/**
+		 * Numerates the table
+		 */
+		numerate_the_table = function () {
+			var $td1,
+				$td2,
+				num = 0; // creeppy method to numerate table rows
 			
-			//tabindex (makes tds "selectable")
-			$("tr:not(:first-child) td:not(:first-child)").attr({"tabindex":"1"})
+			// numerates first row; currently no need
+			/*for (i = 1; i < col_n; i++) {
+				$td1 = $("td").eq(i).text(i);
+			}*/
+			
+			// numerates first column
+			for (j = 0; j < row_n*col_n; j = j + col_n) {
+				num++;
+				$td2 = $("td").eq(j+col_n).text(num);
+			}
 		};
 		
 		/**
@@ -129,13 +210,14 @@
 			$input.keydown(function (e) {
 				switch (e.keyCode) {
 					case 13: 	// Enter key
-					target.text($input.val()); // writes input value to td
+					target.text($input.val()); 	 // writes input value to td
 					$input.remove();     		 // destroys input
+					shiftmode (target, 40);		 // goes down
 					break;
 
 					case 27: 	// Escape key
 					$input.remove();
-					target.text(cell_value2); // "cell_value" doesn't exist
+					$(target.text(cell_value2)).focus(); // "cell_value" doesn't exist; focus stays on this td
 					break;
 				}
 			});
@@ -148,28 +230,159 @@
 			});
 		};
 
+		/**
+		 * Moves td's focus according to arrows on keyboard
+		 * @param {object} target
+		 * @param {integer} key
+		 */
+		shiftmode = function (target, key) {
+			var col = target.index(),	// gets target "position" in table; the index function called with no parameters will get the position relative to its siblings
+   				row = target.closest('tr').index(), //closest ancestor
+   				$row;   // row element for up and down shifts
+
+			switch (key) {	//left = 37, up = 38, right = 39, down = 40
+					case 37: 	
+						//col--;
+						//if (col > 0) {
+							$(target.prev()).focus();
+						//}
+					break;
+					case 38: 	
+						//row--;
+						//if (row > 0) {
+							$row = $(target.closest('tr')).prev(); // gets up on 1 lvl to closest tr (row)
+							$($row.children()).eq(col).focus();    // goes in list of children (tds) and in particular element
+						//}
+					break;
+					case 39: 	
+						//col++;
+						//if (col <= col_n) {
+							$(target.next()).focus();
+						//}
+					break;
+					case 40: 	
+						//row++;
+						//if (row <= row_n) {
+							$row = $(target.closest('tr')).next(); // gets down on 1 lvl (1 row)
+							$($row.children()).eq(col).focus();    // goes in list of children (tds) and in particular element
+						//}
+					break;
+				}
+		};
+
+		/**
+		 * Shows own context menu started in clicked coordinates
+		 * @param {object} tar
+		 * @param {integer} l (left coordinates)
+		 * @param {integer} t (top coordinates)
+		 */
+		context_menu = function (tar, l, t) {
+			var row_number,	// the number of row was clicked
+				$menu1,		// area of menu 1
+				$menu2;		// area of menu 2
+
+			$menu1 = $("#contextmenu [name='add_row']");		
+			$menu2 = $("#contextmenu [name='delete_row']");		
+			$cont = $("#contextmenu");					 // div with context menu
+			$context.css("background-color", "#999");	 // fills every context tds with default color
+			$cont.css({"top":t,"left":l}); 				 // positioning menu in a click point
+			tar.css("background-color", "#0093d7");  	 // fills clicked context td with a blue color
+			$cont.show();	
+			
+			// hides context menu when clicked outside of it
+			$('html').click(function() {
+			    $cont.hide();
+			    tar.css("background-color", "#999"); // fills clicked td with default color
+			});
+
+		}
+
+		/**
+		 * Adds a new table row above current. Global function
+		 * @param {integer} row_number
+		 */
+		function add_row (target) {
+			var $newtarget,		// TR instead of TD
+				$new_context,
+				$new_content;
+
+			row_n++;
+			$newtarget = $(target.closest('tr'));
+			$newtarget.before($tr = $("<tr>"));		// inserts new TR before current
+			
+			// splits new TR to the same amount of TDs as in the table
+			for (j = 0; j < col_n; j++) {
+				$td = $("<td>").appendTo($tr);
+				if (j == 0) {
+					$new_context = $td;
+				} 
+			}
+
+			$new_content = $("td:not(:first-child)", $tr); // the second way of select 
+
+			apply_attributes();
+			refresh_content_context();
+			numerate_the_table();
+			listen_event($new_context, $new_content); // have to start new event listener for the new row
+		}
+
+		/**
+		 * Deletes current table row
+		 * @param {object} target
+		 */
+		delete_row = function (target) {
+			var $newtarget;
+
+			row_n--;
+			$newtarget = $(target.closest('tr'));
+			$newtarget.remove();
+
+			numerate_the_table();
+		}
+
+		/**
+		 * Refreshes objects to operate with (after adding new ones)
+		 */		
+		refresh_content_context = function () {
+			$content = $("table td[tabindex='1']");
+			$context = $("table td[context='1']");
+		}
 
 		/**
 		 * Catches events on table cells (focus, doubleclick, blur, Enter, Escape)
 		 */
-		listen_event = function () {
-			var $target,	// element in target (td)
-				$content;	// tds with tabindex 1
-
-				$content = $("table td[tabindex='1']");
+		listen_event = function ($context, $content) {
+			
+			// Right click on context tds
+			$context.on("contextmenu", function (event) {
+				event.preventDefault();		// disables default browser's context menu
+				var $target = $(event.target);
+				$tar = $target;
+				context_menu($target, event.pageX, event.pageY);		// own context menu + coordinates
+			});
 
 			// Double click
 			$content.on("dblclick", function (event) {
-				$target = $(event.target);
+				var $target = $(event.target);
 				editmode($target); 
 			});
 			
 			// Focus and Keypress
 			$content.on("keypress", function (event) {
-				$target = $(event.target);
-				if ($target.focus ()) {
-					editmode($target); 
-				};
+				var $target = $(event.target);
+				editmode($target); 
+			});
+
+			//left = 37, up = 38, right = 39, down = 40
+			$content.on("keydown", function (event) {
+				if ( (event.keyCode == 37) ||
+					 (event.keyCode == 38) ||
+					 (event.keyCode == 39) ||
+					 (event.keyCode == 40)) {
+
+					var $target = $(event.target);
+					shiftmode($target, event.keyCode); 
+				}	
 			});
 		};
 		
@@ -179,6 +392,12 @@
 <body>
 	<div id="outerdiv4table">
 		
+	</div>
+	<div id="contextmenu">
+		<ul>
+			<li name="add_row"><p>Add table row above</p></li>
+			<li name="delete_row"><p>Delete current row</p></li>
+		</ul>
 	</div>
 </body>
 </html>

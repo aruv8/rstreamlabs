@@ -56,7 +56,6 @@
 		initialization = function() {
 	    $(function() { 			
 			$content = $("#drugged");
-
 			listen_event();
 	    	});
 		};
@@ -75,8 +74,7 @@
 				flag = true;
 				
 				// Mouse move (whyle pressed)
-				$content.on("mousemove", function (event) {
-					// if flag == true
+				$(document.body).on("mousemove", function (event) {
 					if (flag) {
 						$content.offset ({
 							left: event.clientX - shiftX,
@@ -86,7 +84,7 @@
 			});
 
 			// Mouse button released
-			$content.on("mouseup", function () {
+			$(document.body).on("mouseup", function (e) {
 				flag = false;
 				shiftX = shiftY = 0; // reset
 			});
