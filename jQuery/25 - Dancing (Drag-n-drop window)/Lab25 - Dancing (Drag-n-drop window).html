@@ -1,0 +1,113 @@
+<!-- drag-n-drop
+квадрат (div) который можно перетаскивать мышью. почитай про события mousedown, mouseup, mousemove. 
+надо выстроить лог цепь: сперва поймать зажатие кнопки мыши, с этого момента начать следить за движением (сохранив нач координаты),
+и пересчитывать (менять) координаты дива при движении. при отпускании кнопки - перестать следить за движением и менять координаты -->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Lab25 - Drag-n-Drop window</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<style type="text/css">
+		body {
+			min-height: 100%;
+			min-width: 100%;
+			margin: 0;
+			padding: 0;
+			background-color: #479;
+		}
+
+		#drugged {
+			position: fixed;
+			margin: 0;
+			padding: 0;
+			left: 0;
+			top: 0;
+			border: 5px solid white;
+			background-color: #777;
+			width: 300px;
+			height: 300px;
+			text-align: center;
+			line-height: 300px;
+			font-size: 24px;
+			font-weight: 600;
+			cursor: pointer;
+			box-sizing: border-box;
+		}
+
+		p {
+			padding: 0;
+			margin: 0;
+			user-select: none;
+		}
+	</style>
+	<script type="text/javascript">
+		var initX,  	// initial X coordinate (where mouse was clicked)
+			initY,		// initial Y coordinate
+			shiftX, 	// left distance from the beginning of moving content
+  			shiftY,		// top distance from the beginning of moving object 
+			$content,	// druggable element 
+  			pos,		// object {left, top}, element position coordinates
+  			flag;		// indicates if element in druggable state or not
+
+		/**
+		 * The very first initializations
+		 */
+		initialization = function() {
+	    $(function() { 			
+			$content = $("#drugged");
+
+			listen_event();
+	    	});
+		};
+
+		/**
+		 * Catches mouse events (mousedown, mousemove, mouseup)
+		 */
+		listen_event = function () {
+
+			// Mouse button continuously pressed
+			$content.on("mousedown", function (e) {
+				get_position($content);
+				shiftX = e.clientX - initX; // coordinates where the mouse button was clicked relative to the beginning of element
+				shiftY = e.clientY - initY;
+				console.log ("Shift: " + shiftX, shiftY);
+				flag = true;
+				
+				// Mouse move (whyle pressed)
+				$content.on("mousemove", function (event) {
+					// if flag == true
+					if (flag) {
+						$content.offset ({
+							left: event.clientX - shiftX,
+							top: event.clientY - shiftY});
+					}
+				});
+			});
+
+			// Mouse button released
+			$content.on("mouseup", function () {
+				flag = false;
+				shiftX = shiftY = 0; // reset
+			});
+		};
+
+		/**
+		 * Gets current position of moving content (from window, not document)
+		 */
+		get_position = function (content) {
+    		pos = content.offset(); // gets left and top position of element
+    		initX = pos.left; // gets initial X coordinate of dragged object
+		    initY = pos.top;  // gets initial Y coordinate of dragged object
+		    console.log ("Init: " + initX, initY);
+		}
+
+		initialization();
+	</script>
+</head>
+<body>
+	<div id="drugged">
+		<p>Drug-n-Drop me!</p>
+	</div>
+</body>
+</html>
