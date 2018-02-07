@@ -151,7 +151,7 @@
 		 * @param {object} menu1	(Li)
 		 * @param {object} menu2	(Li)
 		 */
-		function listen_context_menu_event (menu1, menu2) {
+		this.listen_context_menu_event = function (menu1, menu2) {
 			
 			// click on menu 1 (add row)
 			menu1.on("click", function () {
@@ -335,7 +335,7 @@
 			});
 
 			// Runs event listener for context menu
-			listen_context_menu_event($menu1, $menu2);
+			xthis.listen_context_menu_event($menu1, $menu2);
 		}
 
 		/**
