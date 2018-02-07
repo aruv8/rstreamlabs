@@ -9,10 +9,14 @@
 	<title>Lab25 - Drag-n-Drop window</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<style type="text/css">
+		html {
+			height: 100%;
+			background-color: white;
+		}
 		body {
 			min-height: 100%;
-			min-width: 100%;
-			margin: 0;
+			width: 1000px;
+			margin: 0 auto;
 			padding: 0;
 			background-color: #479;
 		}
@@ -74,7 +78,7 @@
 				flag = true;
 				
 				// Mouse move (whyle pressed)
-				$(document.body).on("mousemove", function (event) {
+				$(document).on("mousemove", function (event) {
 					if (flag) {
 						$content.offset ({
 							left: event.clientX - shiftX,
@@ -84,7 +88,7 @@
 			});
 
 			// Mouse button released
-			$(document.body).on("mouseup", function (e) {
+			$(document).on("mouseup", function (e) {
 				flag = false;
 				shiftX = shiftY = 0; // reset
 			});
