@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Lab 26 - Slide</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<style type="text/css">
+		html {
+			height: 100%;
+		}
+
+		body {
+			position: relative;
+			margin: 0;
+			padding: 0;
+			width: 100%;
+			height: 100%;
+			background-color: #ddd;
+		}
+
+		#xbody {
+			position: relative;
+			margin: 0 auto;
+			padding: 0;
+			width: 1000px;
+			min-height: 100%;
+			background-color: #eee; 
+		}
+
+		header {
+			margin: 0;
+			padding: 0;
+			width: 100%;
+			height: 200px;
+			background-color: #607d8b;
+		}
+
+		.slide_inner_container {
+			position: relative;
+			box-sizing: border-box;
+			padding: 0;
+			margin: 0 auto;
+			text-align: center;
+			overflow: hidden;
+		}
+
+		.image_containers {
+			position: absolute;
+			margin: 0;
+			padding: 0;
+			width: 100%;
+			opacity: 0;
+		}
+
+
+	</style>
+	<script type="text/javascript">
+		
+	/**
+	 * Creates animated slide.
+	 *
+	 * @constructor
+	 * @this  {Slide}
+	 * @param {object} 	data 					
+	 * @param {object} 	data.append_to 						The container where a slide should be created.
+	 * @param {array} 	data.images 						The array with links to images.
+	 * @param {string}  data.transition_type 	[optional] 	("simple", "dilution"). Default is "simple".
+	 * @param {integer} data.height 			[optional]	The height of slide. Default is 500px. Width is 100%.
+	 * @param {integer} data.delay 				[optional]	The delay between image transitions in mili seconds. Default is 2000.
+	 */
+	function Slide (data) {
+		var xthis = this;
+
+		/**
+		 * Initial loads.
+		 */
+		this.initialization = function () {
+			xthis.generate_slide();
+		}
+
+		/**
+		 * Generates slides.
+		 */
+		this.generate_slide = function () {
+			var $outer_container,	// The container where a slide should be created
+				$inner_container,	// The internal container to limit slide size
+				$image_container,
+				slide_height,
+				i,
+				str;
+
+			slide_height = (data.height + "px") || ("500px");
+
+			$outer_container = $(data.append_to);
+			$inner_container = $("<div>").attr({"class":"slide_inner_container"}).css({"height":slide_height}).appendTo($outer_container);
+			
+			// Images as containers' backgrounds
+			for (i = 0; i < data.images.length; i++) {
+				str = "url('" + data.images[i] + "')";
+				$image_container = $("<div>").attr({"class":"image_containers"})
+											 .css({"height":slide_height, 
+											 		"background-image":str,
+											 		"background-size":"cover"})
+											 .appendTo($inner_container);
+				if (i == 0) {
+					$($image_container[i]).css({"opacity":"1"});
+				}
+			}
+
+			switch (data.transition_type) {
+				case "simple":
+				default:
+					xthis.simple_animation();
+					break;
+				case "dilution":
+					xthis.dilution_animation();
+					break;
+			}
+		};
+
+		/**
+		 * Simple animation between slide images.
+		 */
+		this.simple_animation = function () {
+			var $image_containers,			// The array of images
+				transition_delay,
+				current_displayed_image,	// Index from the array of images
+				i;
+
+			transition_delay  = data.delay || 2000;
+			current_displayed_image = 0;
+
+			$outer_container = $(data.append_to);
+			$inner_container = $(".slide_inner_container", data.append_to);
+			$image_containers = $(".image_containers", data.append_to);
+
+			setInterval (function () {
+				for (i = 0; i < $image_containers.length; i++) {
+					$($image_containers[i]).css("opacity", 0);
+				}
+				current_displayed_image++;
+				if (current_displayed_image > $image_containers.length) {
+					current_displayed_image = 1;
+				}
+				$($image_containers[current_displayed_image - 1]).css("opacity", 1);
+			}, transition_delay);
+		};
+
+		/**
+		 * Dilution animation between slide images.
+		 */
+		this.dilution_animation = function () {
+			var $image_containers,			// The array of images
+				transition_delay,
+				current_displayed_image,	// Index from the array of images
+				i,
+				str;
+
+			transition_delay  = data.delay || 2000;
+			current_displayed_image = 0;
+
+			$outer_container = $(data.append_to);
+			$inner_container = $(".slide_inner_container", data.append_to);
+			$image_containers = $(".image_containers", data.append_to);
+
+			setInterval (function () {
+				for (i = 0; i < $image_containers.length; i++) {
+					$($image_containers[i]).css("opacity", 0);
+				}
+				current_displayed_image++;
+				if (current_displayed_image > $image_containers.length) {
+					current_displayed_image = 1;
+				}
+				str = data.delay + "ms";
+				$($image_containers[current_displayed_image - 1]).css({"opacity": 1,
+																	   "transition-property":"opacity",
+																	   "transition-duration":str});
+			}, transition_delay);
+		};
+
+		
+
+		/**
+		 * Runs after all the document is loaded.
+		 */
+		$(function(){
+			xthis.initialization();
+		});
+	};
+
+
+	var slide_one = new Slide ({append_to: "#first_slide",
+								images: ["https://static.pexels.com/photos/210186/pexels-photo-210186.jpeg",
+							   				 "http://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg",
+							   				 "https://images4.alphacoders.com/288/288674.jpg"],
+								transition_type: "simple",
+								height: 400,
+								delay: 2100});
+
+	var slide_two = new Slide ({append_to: "#second_slide",
+								images: ["https://static.pexels.com/photos/210186/pexels-photo-210186.jpeg",
+							   				 "http://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg",
+							   				 "https://images4.alphacoders.com/288/288674.jpg"],
+								transition_type: "dilution",
+								height: 400,
+								delay: 2100});
+
+	</script>
+</head>
+<body>
+	<header></header>
+	<div id="xbody">
+		<div id="first_slide"></div>
+		<div id="second_slide"></div>
+	</div>
+</body>
+</html>
