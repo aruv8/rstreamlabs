@@ -1,0 +1,258 @@
+<!-- acro #4: слайд-шоу. несколько картинок, меняющихся последовательно.
+c) новая наезжает на старую справа -->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Lab 26 - Slide</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<style type="text/css">
+		html {
+			height: 100%;
+		}
+
+		body {
+			position: relative;
+			margin: 0;
+			padding: 0;
+			width: 100%;
+			height: 100%;
+			background-color: #ddd;
+		}
+
+		#xbody {
+			position: relative;
+			margin: 0 auto;
+			padding: 0;
+			width: 1000px;
+			min-height: 100%;
+			background-color: #eee;
+			overflow: hidden; 
+		}
+
+		header {
+			margin: 0;
+			padding: 0;
+			width: 100%;
+			height: 200px;
+			background-color: #607d8b;
+		}
+
+		.image_container {
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			overflow: hidden;
+		}
+
+		.bullets_container {
+			position: absolute;
+			bottom: 0;
+			left: 40%;
+			height: 30px;
+			padding-bottom: 10px;
+			z-index: 1;
+		}
+		
+		.bullets_container * {
+			width: 15px;
+			height: 15px;
+			background-color: white;
+			border: 3px solid #00619d;
+			display: inline-block;
+			margin: 0 15px;
+			cursor: pointer;
+		}
+		
+		.bullets_container *.activated {
+			background-color: #0093d7;
+		}
+
+		.buttons {
+		    color: white;
+		    padding: 12px 0;
+		    margin: 5px 0;
+		    border: none;
+		    cursor: pointer;
+		    width: 100%;
+		    font-size: 15px;
+		}
+
+		.lightblue {
+			background-color: #0093d7;
+		}
+
+		#first_slide_button {
+			width: 300px;
+			margin: 0 auto;
+		}
+
+
+	</style>
+	<script type="text/javascript">
+		
+	/**
+	 * Creates animated slide.
+	 *
+	 * @constructor
+	 * @this  {Slide}
+	 * @param {object} 	data 					
+	 * @param {object} 	data.append_to 						The container where a slide should be created.
+	 * @param {array} 	data.images 						The array with links to images.
+	 * @param {integer} data.delay 							The delay between image transitions in mili seconds.
+	 * @param {integer} data.height 						The height of slide. Width is 100%.
+	 */
+	function Slide (data) {
+		var xthis = this,
+			images_right_shift = "1000px",	// Same as #xbody width.
+			array_of_pictures = [],
+			array_of_bullets = [],
+			$container_for_bullets,
+			interval,						 
+			current_displayed_image_index = 0;	
+
+		/**
+		 * Initial loads.
+		 */
+		this.initialization = function () {
+			xthis.generate_slide();
+			xthis.run_animation();
+		}
+
+		/**
+		 * Generates slides.
+		 */
+		this.generate_slide = function () {
+			var $slide_container,	// The container where a slide should be created
+				$object_container,	// The data.append_to parameter ()
+				$image_container,	// The container with a picture as background
+				$bullet,			// Current bullet
+				$button_container,
+				slide_height,
+				i,					// Index for cycle
+				str;				// String for URL, for pictures
+
+			slide_height = (data.height + "px") || ("500px");
+			$object_container = $(data.append_to);
+			$slide_container = $("<div>").attr({"class":"image_container"}).css({"height":slide_height}).appendTo($object_container);
+			$container_for_bullets = $("<div>").attr({"class":"bullets_container"}).appendTo($slide_container);
+			
+			for (i = 0; i < data.images.length; i++) {
+				str = "url('" + data.images[i] + "')";
+				$image_container = $("<div>").attr({"class":"image_container"})
+											 .css({"height":slide_height, 
+											 		"background-image":str,
+											 		"background-size":images_right_shift})
+											 .appendTo($slide_container);
+				$bullet = $("<div>").appendTo($container_for_bullets);
+				array_of_pictures.push($image_container);
+
+				if (i == data.images.length - 1) {
+					$bullet.addClass("activated");
+				}
+
+				$bullet.click ( function (event) { return function() {xthis.rewind_animation(event);};} (i));
+				array_of_bullets.push($bullet);
+			}
+
+			$object_container.css({"height": data.height});
+			$button_container = $("#first_slide_button");
+			$("<button>").addClass("lightblue buttons").
+				text("Stop slide animation").
+				appendTo($button_container).
+				click(function() {xthis.stop_animation()});
+			$("<button>").addClass("lightblue buttons").
+				text("Run slide animation").
+				appendTo($button_container).
+				click(function() {xthis.run_animation()});
+		};
+
+		/**
+		 * Changes demonstrated elements (pictures and bullets).
+		 */
+		this.change_next=function() {
+			var current_picture,
+				previous_picture,
+				current_bullet,
+				$container,
+				str;
+
+			if (current_displayed_image_index > 0) {
+				previous_picture = array_of_pictures[current_displayed_image_index - 1];
+			} 
+			if (current_displayed_image_index == 0) {
+				previous_picture = array_of_pictures[array_of_pictures.length - 1];
+			}
+
+			current_picture = array_of_pictures[current_displayed_image_index];
+			current_bullet = array_of_bullets[current_displayed_image_index];
+			$container = $(data.append_to);
+
+			current_picture.css({left: images_right_shift}).appendTo($container).animate({left: "0"}, 500);
+			previous_picture.animate({left: "-"+images_right_shift}, 500);
+			$("div", $container_for_bullets).removeClass("activated");
+			current_bullet.addClass("activated");
+
+			current_displayed_image_index++;
+			if (current_displayed_image_index >= data.images.length) {
+				current_displayed_image_index = 0;
+			}
+		};
+
+		/**
+		 * Runs the process of changing pictures.
+		 */
+		this.run_animation = function () {
+			if (interval)
+				clearInerval(interval);
+			interval = setInterval(xthis.change_next, data.delay);
+		};
+
+		/**
+		 * Stops the process of changing pictures.
+		 */
+		this.stop_animation = function() {
+			clearInterval(interval);
+			interval = null;
+		};
+		
+		/**
+		 * Rewinds the process of changing pictures.
+		 */
+		this.rewind_animation = function(i) {
+			xthis.stop_animation();
+			current_displayed_image_index = i;
+			xthis.change_next();
+			xthis.run_animation();
+		}; 
+		
+		/**
+		 * Runs after all the document is loaded.
+		 */
+		$(function(){
+			xthis.initialization();
+		});
+	};
+
+
+	var slide_one = new Slide ({append_to: "#first_slide",
+								images: ["https://static.pexels.com/photos/210186/pexels-photo-210186.jpeg",
+							   				 "http://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg",
+							   				 "https://images4.alphacoders.com/288/288674.jpg",
+							   				 "http://galaxyworldtravels.com/wp-content/uploads/2017/08/tibetpic1.jpg"],
+								height: 500,
+								delay: 2100});
+
+
+	</script>
+</head>
+<body>
+	<header></header>
+	<div id="xbody">
+		<div id="first_slide"></div>
+		<div id="first_slide_button"></div>
+	</div>
+</body>
+</html>
