@@ -152,9 +152,9 @@ c) новая наезжает на старую справа -->
 					$bullet.addClass("activated");
 				}
 
-				$bullet.click( function (event) {
+				$bullet.click( function (ii) {
 					return function() {
-						xthis.rewind_animation(event);
+						xthis.rewind_animation(ii);
 					};
 				}(i));
 				array_of_bullets.push($bullet);
@@ -186,6 +186,7 @@ c) новая наезжает на старую справа -->
 			$container = $(data.append_to);
 
 			current_picture.css({left: images_right_shift}).appendTo($container).animate({left: "0"}, 500);
+			console.log(current_picture.css('background-image'));
 			$("div", $container_for_bullets).removeClass("activated");
 			current_bullet.addClass("activated");
 
@@ -193,6 +194,7 @@ c) новая наезжает на старую справа -->
 			if (current_displayed_image_index >= data.images.length) {
 				current_displayed_image_index = 0;
 			}
+
 		};
 
 		/**
@@ -235,7 +237,7 @@ c) новая наезжает на старую справа -->
 								images: ["https://static.pexels.com/photos/210186/pexels-photo-210186.jpeg",
 							   				 "http://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg",
 							   				 "https://images4.alphacoders.com/288/288674.jpg",
-							   				 "http://galaxyworldtravels.com/wp-content/uploads/2017/08/tibetpic1.jpg"],
+							   				 "http://i.dailymail.co.uk/i/pix/2017/10/19/08/457BCECC00000578-0-image-a-1_1508398651751.jpg"],
 								height: 500,
 								delay: 2100});
 
