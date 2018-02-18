@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Database + Nodejs Local</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="res/main.css">
+  	<script src="res/main.js"></script>  
+</head>
+<body>
+	<div id="loading_message_outerdiv">
+	    <div>
+	    	<p>Please wait</p>
+	    	<img src="res/ajax-loader.gif" alt="Loading" />
+	    </div>
+	</div>
+
+	<header>
+		<div class="lightblue" id="top_dummy"></div>
+		<div id="mainmenu">
+			<div id="container_4tiles_mainmenu">
+				<ul>
+					<li page="1">
+						<div page="1" class="animated_square_tile darkblue">
+							<p class="arial_font" page="1">Home</p>
+							<span page="1"> <!-- spans need for animation -->
+								<p class="arial_font" page="1">This is text for home button.</p>
+							</span> 
+						</div>
+					</li>
+					<li page="2">
+						<div page="2" class="animated_square_tile darkblue">
+							<p class="arial_font" page="2">Registration</p>
+							<span page="2"> 
+								<p class="arial_font" page="2">This is text for registration button.</p>
+							</span> 
+						</div>
+					</li>
+					<li page="3">
+						<div page="3" class="animated_square_tile darkblue">
+							<p class="arial_font" page="3">User List</p>
+							<span page="3"> 
+								<p class="arial_font" page="3">This is text for user list button.</p>
+							</span> 
+						</div>
+					</li>
+					<li page="4">
+						<div page="4" class="animated_square_tile darkblue">
+							<p class="arial_font" page="4">About</p>
+							<span page="4"> 
+								<p class="arial_font" page="4">This is text for about button.</p>
+							</span> 
+						</div>
+					</li>
+				</ul>
+			</div>
+			
+			<div id="header_login">
+				<input  class="header_inputs" type="text"     placeholder="Enter Username" name="uname" required>
+                <input  class="header_inputs" type="password" placeholder="Enter Password" name="psw"   required>
+                <button class="buttons lightblue" type="button" onclick="website.login()">Login</button>
+			</div>
+			
+			<div id="header_greetings">             
+	            <p class="arial_font"></p>   <!-- jQuery will change it accordind to logged-in user-->                       
+	            <div id="greetings_image_c">
+	                <img id="greetings_image" src=""> <!-- jQuery will change it-->
+	            </div>
+	            <button class="buttons grey" type="button" onclick="website.logout()">Logout</button>
+        	</div>
+		</div>
+	</header>
+	<main>
+		<div id="page1" class="navigation_hash_page">
+			<h4>Home page</h4>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+		</div>
+		
+		<div id="page2" class="navigation_hash_page">
+			<form class="forms" id="registration_form">                       
+	            <h2>Registration</h2>
+	            <input class="form_inputs" type="text" placeholder="Enter Username" name="newuname" required><br>
+	            <input class="form_inputs" type="password" placeholder="Enter Password" name="newpsw" required><br>
+	            <input class="form_inputs" id="input_avatar_URL_registration_form" placeholder="Link to your avatar" name="avatarURL" type="url" list="defaultAvatars" required><br>
+	                <datalist class="form_inputs" id="defaultAvatars">
+	                  <option value="http://icons.veryicon.com/ico/Avatar/Browser%20Girl/browser%20girl%20safari.ico">
+	                  <option value="https://cdn3.iconfinder.com/data/icons/musthave/256/User.png">
+	                  <option value="http://www.iconarchive.com/download/i47216/icons-land/vista-people/Office-Client-Female-Light.ico">
+	                  <option value="http://icons.iconarchive.com/icons/icons-land/vista-people/256/Person-Male-Dark-icon.png">
+	                  <option value="https://www.shareicon.net/download/2015/05/04/33304_woman_256x256.png">
+	                  <option value="https://cdn0.iconfinder.com/data/icons/IS_CMS/256/user.png">
+	                </datalist>
+	            <button class="buttons lightblue" type="button" onclick="website.register()">Register</button>
+        	</form>
+		</div>
+		
+		<div id="page3" class="navigation_hash_page">
+			<form class="forms" id="user_list">                               
+	        <!-- jQuery will assemble code here -->
+	        </form>
+		</div>
+		
+		<div id="page4" class="navigation_hash_page">
+			<h4>About</h4>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+		</div>
+
+		
+
+	</main>
+
+</body>
+</html>

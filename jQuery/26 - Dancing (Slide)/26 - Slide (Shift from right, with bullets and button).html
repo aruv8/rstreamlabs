@@ -111,7 +111,9 @@ c) новая наезжает на старую справа -->
 			array_of_bullets = [],
 			$container_for_bullets,
 			interval,						 
-			current_displayed_image_index = 0;	
+			current_displayed_image_index,
+			cdii,
+			left_rewind_flag = false;	
 
 		/**
 		 * Initial loads.
@@ -153,9 +155,15 @@ c) новая наезжает на старую справа -->
 					$bullet.addClass("activated");
 				}
 
-				$bullet.click ( function (event) { return function() {xthis.rewind_animation(event);};} (i));
+				$bullet.click ( function (ii) 
+					{return function() {
+						xthis.rewind_animation(ii);
+					};
+				}(i));
 				array_of_bullets.push($bullet);
 			}
+
+			cdii = current_displayed_image_index = 0;
 
 			$object_container.css({"height": data.height});
 			$button_container = $("#first_slide_button");
@@ -178,12 +186,25 @@ c) новая наезжает на старую справа -->
 				current_bullet,
 				$container,
 				str;
-
-			if (current_displayed_image_index > 0) {
-				previous_picture = array_of_pictures[current_displayed_image_index - 1];
-			} 
-			if (current_displayed_image_index == 0) {
-				previous_picture = array_of_pictures[array_of_pictures.length - 1];
+				//debugger;
+			if (left_rewind_flag) {
+				if ((current_displayed_image_index > 0) && (current_displayed_image_index != array_of_pictures.length - 1)) {
+					previous_picture = array_of_pictures[current_displayed_image_index + 1];
+				} 
+				if (current_displayed_image_index == 0) {
+					previous_picture = array_of_pictures[1];
+				}
+				if (current_displayed_image_index == array_of_pictures.length - 1) {
+					previous_picture = array_of_pictures[0];
+				}
+				left_rewind_flag = false;
+			} else {
+				if (current_displayed_image_index > 0) {
+					previous_picture = array_of_pictures[current_displayed_image_index - 1];
+				} 
+				if (current_displayed_image_index == 0) {
+					previous_picture = array_of_pictures[array_of_pictures.length - 1];
+				}
 			}
 
 			current_picture = array_of_pictures[current_displayed_image_index];
@@ -195,6 +216,7 @@ c) новая наезжает на старую справа -->
 			$("div", $container_for_bullets).removeClass("activated");
 			current_bullet.addClass("activated");
 
+			cdii = current_displayed_image_index;
 			current_displayed_image_index++;
 			if (current_displayed_image_index >= data.images.length) {
 				current_displayed_image_index = 0;
@@ -220,9 +242,15 @@ c) новая наезжает на старую справа -->
 		
 		/**
 		 * Rewinds the process of changing pictures.
+		 *
+		 * @param {integer} i 	Index
 		 */
 		this.rewind_animation = function(i) {
 			xthis.stop_animation();
+			//debugger;
+			if ((cdii > i) || (cdii == array_of_pictures.length -  1)) {
+				left_rewind_flag = true;
+			}
 			current_displayed_image_index = i;
 			xthis.change_next();
 			xthis.run_animation();
