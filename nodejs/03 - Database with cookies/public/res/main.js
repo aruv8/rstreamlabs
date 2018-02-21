@@ -152,7 +152,8 @@ function WebsiteObject() {
         current_logged_user_and_ava = [];
         xthis.switch_to_form_LG("login");
         $user_login.val("");
-        $user_pass.val(""); 													 
+        $user_pass.val("");
+        xthis.delete_cookie(); 													 
     };
 
 	/**
@@ -179,12 +180,33 @@ function WebsiteObject() {
 			if (data.status == "ok") {
 				current_logged_user_and_ava.push(data.data.name, data.data.ava); //string format
 				xthis.change_greetings_data();
-                xthis.switch_to_form_LG("greetings"); 
+                xthis.switch_to_form_LG("greetings");
+                xthis.save_cookie(data.data.name, data.hash); 
 			} else {
 				alert ("Incorrect username or password");
 			}
 		});
 	};
+
+    /**
+     * Saves/appends data to cookies
+     * 
+     * @param {string} usr 	User name.
+     * @param {string} hsh 	Hash.
+     */
+    this.save_cookie = function(usr, hsh) {     
+    	document.cookie = "user=" + usr;
+    	document.cookie = "hash=" + hsh;
+    }
+
+    /**
+     * Deletes user and hash from cookies
+     * 
+     */
+    this.delete_cookie = function() {     
+    	document.cookie = "user=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    	document.cookie = "hash=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    }
 	
     /**
      * Displays user's tiles with names and avatars

@@ -2,7 +2,7 @@ var server = require("http"),
 	ns = require('node-static'),	  
 	srv = server.createServer(req_proc),
 	db_logic = require('./db_logic'), 
-	splitter = require('./path_splitter'), 
+	splitter = require('./splitters'), 
 	nodeStatic = new ns.Server('./public');
 
 srv.listen(8080);
@@ -19,29 +19,37 @@ function req_proc(req, resp) {
 	    log_reg_Data,			// a result of login or register function, object or false
 	    respo = {},				// a response from server, begins with status
 	    the_whole_base;			// all the base in string format
+	    
+	    db_logic.check_hash_for_existence (req.headers.cookie, "hash");	// The function changes global flag (db_logic.correct_hash_flag) if the request from authorized user.
 
-	switch (rdata.u) {											
-		case "/favicon.ico":
-			response(resp, 200, "text/plain", "");  		  
-			break;
-		case '/register':
-			log_reg_Data = db_logic.register(rdata.q.name, rdata.q.password, rdata.q.avatar); //adds new user in database if it doesn't exist
-			respo = log_reg_Data ? {status: "ok", data: log_reg_Data} : {status: "error"}; //condition ? value-if-true : value-if-false
-			response(resp, 200, "application.json", JSON.stringify(respo));
-			break;
-		case '/all':
-			the_whole_base = db_logic.get_db();
-			response(resp, 200, "application/json", the_whole_base); //returns json version of text database
-			break;
-		case '/login':
-			log_reg_Data = db_logic.login(rdata.q.name, rdata.q.password); // returns object or false
-			respo = log_reg_Data ? {status: "ok", data: log_reg_Data} : {status: "error"};
-			response(resp, 200, "application.json", JSON.stringify(respo));
-			break;
-		default:
-			nodeStatic.serve(req, resp);		//other cases are handled by node static
-			break;
-	}
+		switch (rdata.u) {											
+			case "/favicon.ico":
+				response(resp, 200, "text/plain", "");  		  
+				break;
+			case '/register':
+				log_reg_Data = db_logic.register(rdata.q.name, rdata.q.password, rdata.q.avatar); 	//adds new user in database if it doesn't exist
+				respo = log_reg_Data ? {status: "ok", data: log_reg_Data} : {status: "error"}; 		//condition ? value-if-true : value-if-false
+				response(resp, 200, "application.json", JSON.stringify(respo));
+				break;
+			case '/all':
+				console.log("Correct Hash Flag: ", db_logic.correct_hash_flag);
+				if (db_logic.correct_hash_flag) {	// The hash received found in global array (request from authorized user).
+						the_whole_base = db_logic.get_db();
+						response(resp, 200, "application/json", the_whole_base); //returns json version of text database; add check
+					break;
+				}
+			case '/login':
+				log_reg_Data = db_logic.login(rdata.q.name, rdata.q.password); 	// returns object or false
+				login_hash = db_logic.hash_generator(rdata.q.name);				// generates random hash
+				db_logic.storedHashes.push(login_hash);							// stores generated hash in global array
+				console.log("Stored Hashes: ", db_logic.storedHashes);
+				respo = log_reg_Data ? {status: "ok", data: log_reg_Data, hash: login_hash} : {status: "error"};
+				response(resp, 200, "application.json", JSON.stringify(respo));	
+				break;
+			default:
+				nodeStatic.serve(req, resp);		//other cases are handled by node static
+				break;
+		}
 }
 
 /**
@@ -57,5 +65,5 @@ function response(resp, code, type, content) {
 	resp.write(content);
 	setTimeout(function(){
 		resp.end();	
-	}, 1500);
+	}, 10);
 }
