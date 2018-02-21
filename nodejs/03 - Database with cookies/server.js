@@ -38,6 +38,8 @@ function req_proc(req, resp) {
 						response(resp, 200, "application/json", the_whole_base); //returns json version of text database; add check
 					break;
 				}
+				response(resp, 200, "text/plain", "Unauthorized access.");	
+				break;
 			case '/login':
 				log_reg_Data = db_logic.login(rdata.q.name, rdata.q.password); 	// returns object or false
 				login_hash = db_logic.hash_generator(rdata.q.name);				// generates random hash
