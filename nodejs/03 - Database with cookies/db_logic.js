@@ -90,8 +90,14 @@ function DbModule() {
 	 * @returns {string}
 	 */
     this.read_cookie = function (src, key) {
-	    var keyEQ = encodeURIComponent(key) + "=";
-	    var ca = src.split(';');
+	    var ca,
+	    	keyEQ = encodeURIComponent(key) + "=";
+	    
+	    if (src) {	// if cookies exist at all
+	    	ca = src.split(';');
+	    } else {
+	    	return null;
+	    }
 	    
 	    for (var i = 0; i < ca.length; i++) {
 	        var c = ca[i];
@@ -113,7 +119,9 @@ function DbModule() {
 	this.check_hash_for_existence = function (src, key) {
 		var hash = xthis.read_cookie(src, key);
 
-		console.log("Current Hash: ", hash);
+		if (hash) {
+			console.log("Current Hash: ", hash);
+		}
 		xthis.correct_hash_flag = false;
 		if (hash) {
 			for (var i = 0; i < xthis.storedHashes.length; i++) {
