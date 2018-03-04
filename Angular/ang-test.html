@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+	<title></title>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+	<script type="text/javascript" src="app.js"></script>
+	<style type="text/css">
+		.red {
+			background-color: red;
+		}
+		.menu {
+			list-style-type: none;
+			cursor: pointer;
+			width: 200px;
+		}
+		.menu li:hover {
+			background-color: #def;
+		}
+	</style>
+</head>
+<body ng-controller="myctrl">
+	<h3>{{title}}</h3>
+	<h4>{{x}}</h4>
+
+	
+
+	<!--<div ng-show="x=='5'">x is 5</div>
+	<div ng-show="x=='4'">x is 4</div>
+	<div ng-show="x=='4'||x=='5'">x is 4 or 5</div>
+	<div ng-hide="x==''">$$$$$$</div>-->
+	<ul class="menu">
+		<li ng-repeat="m in menu" ng-click="setPage(m.code)">{{m.label}}</li>
+	</ul>
+
+	<div ng-show="page == 'main'">
+		<ul>
+			<!--<li ng-repeat="q in arr track by $index">{{q}}</li>-->
+			<li ng-repeat="q in arr track by $index">{{q}}</li>
+		</ul>
+
+		<input type="text" ng-model="x" ng-class="{'red': x.length<6}">
+		<label><input type="checkbox" ng-model="ch">hide button</label>
+		<button ng-click="add()" ng-disabled="x.length<6" ng-hide="ch">ADD</button>
+	</div>
+
+	<div ng-show="page == 'about'">
+		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+	</div>
+
+
+</body>
+</html>
