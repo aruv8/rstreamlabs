@@ -156,38 +156,6 @@ function WebsiteObject() {
         xthis.delete_cookie(); 													 
     };
 
-	/**
-	 * Checks username & password in the server's database
-	 */
-	this.login = function () {
-		var p_ajax,
-			parsed_data,
-			user = $user_login.val(),
-			pass = $user_pass.val();
-			
-		if (user && pass) {
-			p_ajax = $.ajax({
-				url: '/login',
-				data: {name: user, password: pass},
-				method: 'get' 
-			});
-		} else {
-			alert("Empty field detected");
-			return;
-		}
-		
-		p_ajax.done(function(data) {
-			if (data.status == "ok") {
-				current_logged_user_and_ava.push(data.data.name, data.data.ava); //string format
-				xthis.change_greetings_data();
-                xthis.switch_to_form_LG("greetings");
-                xthis.save_cookie(data.data.name, data.hash); 
-			} else {
-				alert ("Incorrect username or password");
-			}
-		});
-	};
-
     /**
      * Saves/appends data to cookies
      * 
@@ -234,6 +202,38 @@ function WebsiteObject() {
 	    }
     };
 
+	/**
+	 * Checks username & password in the server's database
+	 */
+	this.login = function () {
+		var p_ajax,
+			parsed_data,
+			user = $user_login.val(),
+			pass = $user_pass.val();
+			
+		if (user && pass) {
+			p_ajax = $.ajax({
+				url: '/login',
+				data: {name: user, password: pass},
+				method: 'get' 
+			});
+		} else {
+			alert("Empty field detected");
+			return;
+		}
+		
+		p_ajax.done(function(data) {
+			if (data.status == "ok") {
+				current_logged_user_and_ava.push(data.data.name, data.data.ava); //string format
+				xthis.change_greetings_data();
+                xthis.switch_to_form_LG("greetings");
+                xthis.save_cookie(data.data.name, data.hash); 
+			} else {
+				alert ("Incorrect username or password");
+			}
+		});
+	};
+
     /**
      * Sends new username and new password to server for registration check
      */
@@ -260,6 +260,8 @@ function WebsiteObject() {
         	if (data.status == "ok") { //there's no such user in database
         		current_logged_user_and_ava = [];
         		current_logged_user_and_ava.push(name_value, alink_value);
+        		console.log(data);
+        		xthis.save_cookie(data.name, data.hash);
         		xthis.change_greetings_data();
         		xthis.switch_to_form_LG("greetings");
         	} else {

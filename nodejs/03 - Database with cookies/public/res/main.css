@@ -23,7 +23,7 @@ body {
 
 main {
     position: relative;
-    margin: 0 auto;
+    margin: 240px auto 0;
     padding-top: 20px;
     height: 100%;
     max-width: 1000px;
@@ -89,12 +89,16 @@ main {
 
 /* Including upper fixed menu and main tiled menu */
 header {
-	position: relative;
+	position: fixed;
 	margin-top: 64px;
+    top: 0;
 	padding: 20px 0;
     width: 100%;
     background-image: url(../res/img/grey_background.jpg);
     background-repeat: repeat;
+    border-bottom: 4px solid white;
+    box-shadow: 1px 1px #b1aeae; /*grey*/
+    z-index: 2;
 }
 
 #container_4tiles_mainmenu {

@@ -55,6 +55,7 @@ function DbModule() {
 		console.log ("Successful registration: " + log);
 		db.push({ name: log, password: pass, avatar: ava }); //push new user to db
 		fs.writeFileSync(database, JSON.stringify(db));
+
 		return log;
 	};
 
@@ -119,9 +120,6 @@ function DbModule() {
 	this.check_hash_for_existence = function (src, key) {
 		var hash = xthis.read_cookie(src, key);
 
-		if (hash) {
-			console.log("Current Hash: ", hash);
-		}
 		xthis.correct_hash_flag = false;
 		if (hash) {
 			for (var i = 0; i < xthis.storedHashes.length; i++) {

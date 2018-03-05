@@ -28,12 +28,13 @@ function req_proc(req, resp) {
 				break;
 			case '/register':
 				log_reg_Data = db_logic.register(rdata.q.name, rdata.q.password, rdata.q.avatar); 	//adds new user in database if it doesn't exist
-				respo = log_reg_Data ? {status: "ok", data: log_reg_Data} : {status: "error"}; 		//condition ? value-if-true : value-if-false
+				login_hash = db_logic.hash_generator(rdata.q.name);				// generates random hash for newly registered user
+				respo = log_reg_Data ? {status: "ok", data: log_reg_Data, hash: login_hash} : {status: "error"}; 		//condition ? value-if-true : value-if-false
+				db_logic.storedHashes.push(login_hash);							// stores generated hash in global array
 				response(resp, 200, "application.json", JSON.stringify(respo));
 				break;
 			case '/all':
-				console.log("Correct Hash Flag: ", db_logic.correct_hash_flag);
-				if (db_logic.correct_hash_flag) {	// The hash received found in global array (request from authorized user).
+				if (db_logic.correct_hash_flag) {	// The hash received found in global array (request from authorized user) or user was jus registered.
 						the_whole_base = db_logic.get_db();
 						response(resp, 200, "application/json", the_whole_base); //returns json version of text database; add check
 					break;
@@ -44,7 +45,6 @@ function req_proc(req, resp) {
 				log_reg_Data = db_logic.login(rdata.q.name, rdata.q.password); 	// returns object or false
 				login_hash = db_logic.hash_generator(rdata.q.name);				// generates random hash
 				db_logic.storedHashes.push(login_hash);							// stores generated hash in global array
-				console.log("Stored Hashes: ", db_logic.storedHashes);
 				respo = log_reg_Data ? {status: "ok", data: log_reg_Data, hash: login_hash} : {status: "error"};
 				response(resp, 200, "application.json", JSON.stringify(respo));	
 				break;
