@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html ng-app="login_module">
+<head>
+	<title></title>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+	<script type="text/javascript" src="1.js"></script>
+	<style type="text/css">
+		html {
+			height: 100%;
+		}
+		body {
+			min-height: 100%;
+			min-width: 500px;
+			margin: 0;
+			padding: 0;
+			background-color: #eee;
+		}
+		#login_form, #registration_form, #successfulLogin, #unsuccessfullLogin {
+			position: absolute;
+			width: 400px;
+			top: 0;
+			left: 50%;
+  			transform: translate(-50%, 10px);
+			background-color: #ccc;
+			border: 4px solid white;
+			box-sizing: border-box;
+		}
+		#info {
+			position: absolute;
+			width: 100%;
+			bottom: 0;
+			left: 50%;
+			padding-bottom: 50px;
+  			transform: translateX(-50%);
+			background-color: #ccc;
+			border: 4px solid white;
+			box-sizing: border-box;
+		}
+		.forms {
+			position: relative;
+			padding: 10px;
+			width: 100%;
+			box-sizing: border-box;
+		}
+		.inputs {
+			background-color: white;
+			border: 1px solid #777;
+			color: #444;
+			margin: 2px auto;
+			padding: 10px;
+			width: 100%;
+			box-sizing: border-box;
+		}
+		.buttons {
+		    color: white;
+		    padding: 12px 0;
+		    margin: 25px 0;
+		    border: none;
+		    cursor: pointer;
+		    width: 100%;
+		    font-size: 15px;
+		    background-color: #399;
+		}
+		p {
+			text-align: center;
+			font-size: 20px;
+			padding: 0;
+			margin: 0;	
+		}
+		#info p {
+			font-size: 18px;
+			color: blue;
+		}
+		#menu {
+			list-style-type: none;
+			cursor: pointer;
+			width: 150px;
+			padding: 10px;
+			box-sizing: border-box;
+		}
+		#menu li {
+			padding: 10px;
+			margin: 2px;
+			background-color: #399;
+			box-sizing: border-box;
+		}
+		#menu li:hover {
+			background-color: #377;
+		}
+		.uncomplete {
+			border: 3px solid red;
+		}
+	</style>
+</head>
+<body ng-controller="login_controller">
+	<ul id="menu">
+		<li ng-repeat="myVariable in menu" ng-click="setPage(myVariable.code)">{{myVariable.label}}</li>
+	</ul>
+	<div id="login_form" ng-show="page == 'loginPage'">
+		<form class="forms">
+			<p>Login:</p>
+			<input ng-model="log" class="inputs" type="text" placeholder="Login" name="login">
+			<input ng-model="pas" class="inputs" type="password" placeholder="Password" name="password">
+			<button ng-click="checkBase()" class="buttons">Login</button>
+		</form>
+	</div>
+	<div id="registration_form" ng-show="page == 'registrationPage'">
+		<form class="forms">
+			<p>Registration</p>
+			<input ng-model="usr" ng-class="{'uncomplete': usr.length < 1}" class="inputs" type="text" placeholder="New Login*" name="login">
+			<input ng-model="psw" ng-class="{'uncomplete': psw.length < 6}" class="inputs" type="password" placeholder="New Password*" name="password">
+			<input class="inputs" type="email" placeholder="New Email" name="email">
+			<button ng-show="(usr.length > 0) && (psw.length > 5)" ng-click="addUser()" class="buttons">Register</button>
+		</form>
+	</div>
+	<div id="successfulLogin" ng-show="page == 'successPage'">
+		<form class="forms">
+			<p>Welcome, {{log}}!</p>
+		</form>
+	</div>
+	<div id="unsuccessfulLogin" ng-show="page == 'unsuccessPage'">
+		<form class="forms">
+			<p>Too sad we cannot find you in our Database...</p>
+		</form>
+	</div>
+	<div id="info">
+		<p>Current page: {{page}}</p>
+		<p ng-if="page == 'registrationPage'">New User: {{usr}}</p>
+		<p ng-if="page == 'registrationPage'">New Password: {{psw}}</p>
+		<p ng-if="page == 'loginPage'">Login: {{log}}</p>
+		<p ng-if="page == 'loginPage'">Password: {{pas}}</p>
+		<p class="infotext">Database: {{db}}</p>
+	</div>
+</body>
+</html>
