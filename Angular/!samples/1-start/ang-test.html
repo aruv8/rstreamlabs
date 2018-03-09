@@ -32,7 +32,7 @@
 		<li ng-repeat="m in menu" ng-click="setPage(m.code)">{{m.label}}</li>
 	</ul>
 
-	<div ng-show="page == 'main'">
+	<div ng-if="page == 'main'">
 		<ul>
 			<!--<li ng-repeat="q in arr track by $index">{{q}}</li>-->
 			<li ng-repeat="q in arr track by $index">{{q}}</li>
@@ -43,7 +43,7 @@
 		<button ng-click="add()" ng-disabled="x.length<6" ng-hide="ch">ADD</button>
 	</div>
 
-	<div ng-show="page == 'about'">
+	<div ng-if="page == 'about'">
 		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
 		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
