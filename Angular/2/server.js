@@ -4,8 +4,9 @@ var http = require("http"),
 	url_parser = require("url"),
 	qs = require("querystring"),
 	fs = require("fs"),
-	file_data = "data.txt"
-	static = new ns.Server("./public");
+	file_data = "data.txt";
+	static = new ns.Server("./public"),
+	fdata = fs.readFileSync(file_data, 'utf8');
 
 server.listen(8080);
 console.log("Server is running on http://127.0.0.1:8080");
@@ -16,8 +17,8 @@ function req_proc(req, resp) {
 	var parsed_url = url_parser.parse(req.url),
 		url = parsed_url.pathname,
 		query = parsed_url.query,
-		data = qs.parse(query),
-		fdata = fs.readFileSync(file_data, 'utf8');
+		data = qs.parse(query);
+		
 	switch (url) {
 		case "/get_data_from_file":
 			response(resp, fdata);
