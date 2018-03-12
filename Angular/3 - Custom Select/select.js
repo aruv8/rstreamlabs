@@ -2,7 +2,9 @@ var app = angular.module("select_app", []);
 
 app.controller("contr", function($scope) {
 	$scope.options = ["Option 1", "Option 2", "Option 3", "Option 4", "Option 5"];
-	
+	$scope.formData = {};
+	$scope.showDropdown = null;
+
 	$scope.custSelect = [
 		{
 			name: 'Select CPU',
