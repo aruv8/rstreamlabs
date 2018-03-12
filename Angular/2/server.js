@@ -5,8 +5,8 @@ var http = require("http"),
 	qs = require("querystring"),
 	fs = require("fs"),
 	file_data = "data.txt";
-	static = new ns.Server("./public"),
-	fdata = fs.readFileSync(file_data, 'utf8');
+	static = new ns.Server("./public");
+	
 
 server.listen(8080);
 console.log("Server is running on http://127.0.0.1:8080");
@@ -21,6 +21,7 @@ function req_proc(req, resp) {
 		
 	switch (url) {
 		case "/get_data_from_file":
+			fdata = fs.readFileSync(file_data, 'utf8');
 			response(resp, fdata);
 			break;
 		case "/favicon.ico":
