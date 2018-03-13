@@ -1,9 +1,10 @@
 var app = angular.module("select_app", []);
 
 app.controller("contr", function($scope) {
-	$scope.options = ["Option 1", "Option 2", "Option 3", "Option 4", "Option 5"];
 	$scope.formData = {};
 	$scope.showDropdown = null;
+	$scope.search_field = "";
+	window.scope = $scope; // to use variables from here in html
 
 	$scope.custSelect = [
 		{
@@ -22,10 +23,27 @@ app.controller("contr", function($scope) {
 			options: ['Linux','Windows','Mac OS']
 		}
 	];
-	$scope.custom_option = $scope.options[0];
 
-	$scope.custom_select = function ($index) {
-		$scope.custom_option = $scope.options[$index];
-		$scope.options_flag = false;
+	$scope.custom_select = function (opt, code) {
+		console.log(opt);
+		$scope.showDropdown = null;
+		$scope.formData[code] = opt;
 	};
+	
+	$scope.showdrop = function (code) {
+		$scope.showDropdown = code;
+	};
+
+	$scope.isGood = function (option, filt) {
+		console.log ("Option: ", option);
+		console.log ("Filt: ", filt);
+
+		var new_option;
+		new_option = option.indexOf(filt);
+		if (new_option != -1) {
+			console.log("New option: ", new_option);
+			return new_option + 1;
+		}
+	}
+
 });

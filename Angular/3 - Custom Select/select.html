@@ -24,6 +24,7 @@
 			width: 300px;
 			height: 35px;
 			box-sizing: border-box;
+			border: 1px solid #aaa;
 			cursor: pointer;
 		}
 		.custom_select_arrow_image {
@@ -35,11 +36,14 @@
 			cursor: pointer;
 		}
 		.custom_select_options_list {
+			position: relative;
 			margin: 0;
 			padding: 0;
 			width: 300px;
 			border: 1px solid #aaa;
 			box-sizing: border-box;
+			background-color: white;
+			z-index: 10;
 		}
 		.custom_options_list {
 			margin: 0;
@@ -56,30 +60,37 @@
 		.custom_options_list > li:hover {
 			background-color: lightblue;
 		}
+		.custom_select_input > p {
+			margin: 0;
+			padding: 5px;
+		}
+		.inputs {
+			margin: 0;
+			padding: 0 0 0 5px;
+			font-size: 0.85em;
+			width: 298px;
+			height: 25px;
+			background-color: #7f7;
+			border: none;
+			box-sizing: border-box;
+		}
+		.inputs:focus {
+			background-color: #afa;
+		}
 	</style>
 </head>
 <body ng-controller="contr">
-	<p>Here's a regular Select tag:</p>
-	<select>
-		<option value="Option 1">Option 1</option>
-		<option value="Option 2">Option 2</option>
-		<option value="Option 3">Option 3</option>
-		<option value="Option 4">Option 4</option>
-		<option value="Option 5">Option 5</option>
-	</select>
-	<p>Here's an Angular Select version:</p>
-	<select>
-		<option ng-repeat="x in options" ng-selected="$index == 0">{{x}}</option>
-	</select>
-	<p>Here's a Custom Angular Select version:</p>
-	<div class="custom_select_container">
-		<input ng-model="custom_option" ng-click="options_flag = !options_flag" class="custom_select_input" type="text" name="input_1" readonly>
-		<span ng-click="options_flag = !options_flag" class="custom_select_arrow_image">
+	<div ng-repeat="sel in custSelect" class="custom_select_container">
+		<div ng-click="showdrop(sel.code)" class="custom_select_input">
+			<p>{{formData[sel.code]}}</p>
+		</div>
+		<span class="custom_select_arrow_image">
 			<img src="dropdown.png">
 		</span>
-		<div ng-show="options_flag" class="custom_select_options_list">
+		<div ng-show="showDropdown == sel.code" class="custom_select_options_list">
+			<input ng-model="search_field" class="inputs" type="text" placeholder="...filter...">
 			<ul class="custom_options_list">
-				<li ng-repeat="x in options" ng-click="custom_select($index)">{{x}}</li>
+				<li ng-repeat="opt in sel.options" ng-show="isGood(opt, search_field)" ng-click="custom_select(opt, $parent.sel.code)">{{opt}}</li>
 			</ul>
 		</div>
 	</div>
